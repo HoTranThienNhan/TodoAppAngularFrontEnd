@@ -12,4 +12,10 @@
             <span class="uppercase">Sign In</span>
         </app-button>
     </form>
+    <div class="my-3">
+        {{ search.value }}
+    </div>
+    <form [formGroup]="searchForm">
+        <app-input-search placeholder="Search" [control]="search" (buttonSearchClick)="onButtonSearchClick($event)"></app-input-search>
+    </form>
 </div>

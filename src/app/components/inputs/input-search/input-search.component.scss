@@ -1,0 +1,22 @@
+@import "../../../../../public/assets/sass/abstracts/variables";
+
+.search-input {
+    margin-left: 15px;
+    font-size: 20px;
+
+    &::placeholder {
+        color: $surface-200;
+    }
+}
+
+button {
+    svg {
+        cursor: pointer;
+
+        &:hover {
+            path {
+                stroke: #000;
+            }
+        }
+    }
+}
