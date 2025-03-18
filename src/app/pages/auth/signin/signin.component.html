@@ -1,0 +1,15 @@
+<p>signin works!</p>
+
+<h1 class="text-3xl font-bold underline">
+    Hello world, {{ email.value }}!
+</h1>
+
+<div>
+    <form [formGroup]="signInForm" action="">
+        <app-input type="text" label="Email" placeholder="Email" required="required" [control]="email"></app-input>
+        <app-input type="password" label="Password" placeholder="Password" required="required" [control]="password"></app-input>
+        <app-button>
+            <span class="uppercase">Sign In</span>
+        </app-button>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+@if (label()) {
+    <div>
+        <label class="required">{{ label() }}</label>
+    </div>
+}
+<input 
+    class="border"
+    [class.error]="isError()"
+    [formControl]="control()" 
+    [type]="type()" 
+    [placeholder]="placeholder()" 
+    [required]="required() == 'required' ? true : false">

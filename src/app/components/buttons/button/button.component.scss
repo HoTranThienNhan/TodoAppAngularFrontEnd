@@ -1,0 +1,16 @@
+@import "../../../../../public/assets/sass/abstracts/variables";
+
+button {
+    background-color: $surface-400;
+    color: $surface-50;
+    padding: 12px 0px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 18px;
+
+    &:hover {
+        background-color: $surface-300;
+        transition: .4s background-color;
+    }
+}

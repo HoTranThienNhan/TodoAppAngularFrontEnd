@@ -1,0 +1,29 @@
+@import "../../../../../public/assets/sass/abstracts/variables";
+
+label {
+    font-size: 24px;
+
+    &.required {
+        &::after {
+            padding-left: 5px;
+            content: '*';
+            color: $danger-300;
+        }
+    }
+}
+
+input {
+    font-size: 16px;
+
+    border: 1px solid $surface-200;
+    border-radius: 8px;
+    padding: 12px 16px;
+
+    &::placeholder {
+        color: $surface-200;
+    }
+
+    &.error {
+        border-color: $danger-200;
+    }
+}
