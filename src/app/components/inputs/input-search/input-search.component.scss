@@ -1,11 +1,11 @@
-@import "../../../../../public/assets/sass/abstracts/variables";
+@use "../../../../../public/assets/sass/abstracts/variables";
 
 .search-input {
     margin-left: 15px;
     font-size: 20px;
 
     &::placeholder {
-        color: $surface-200;
+        color: variables.$surface-200;
     }
 }
 
@@ -17,6 +17,34 @@ button {
             path {
                 stroke: #000;
             }
+        }
+    }
+}
+
+.search-select {
+    width: 100%;
+    margin-left: 15px;
+    font-size: 20px;
+
+    ::ng-deep.ng-select-container {
+        box-shadow: none !important;
+        border: none !important;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        .ng-value-container {
+            padding: 0 !important;
+
+            .ng-input {
+                padding: 0 !important;
+
+            }
+        }
+
+        .ng-arrow-wrapper {
+            display: none;
         }
     }
 }

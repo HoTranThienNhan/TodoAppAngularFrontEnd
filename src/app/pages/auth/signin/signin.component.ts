@@ -1,4 +1,4 @@
-import { Component, inject, InputSignal, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { InputComponent } from '../../../components/inputs/input/input.component';
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -44,7 +44,7 @@ export class SigninComponent implements OnInit {
   }
 
   // methods
-  onButtonSearchClick(search: FormControl): void {
-    console.log(search.value);
+  onButtonSearchClick(searchValue: string): void {
+    console.log(searchValue);
   }
 }
