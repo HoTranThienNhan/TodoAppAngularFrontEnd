@@ -5,9 +5,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { InputSearchComponent } from "../../../components/inputs/input-search/input-search.component";
 import { TagComponent } from '../../../components/tag/tag.component';
 import { AddTagComponent } from "../../../components/modals/add-tag/add-tag.component";
+import { MenuTaskItemsComponent } from "../../../components/sidebar/menu-task-items/menu-task-items.component";
+import { MenuTaskComponent } from "../../../components/sidebar/menu-task/menu-task.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })

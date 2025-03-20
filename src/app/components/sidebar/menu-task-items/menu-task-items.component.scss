@@ -1,0 +1,31 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+.menu-task-items {
+    font-size: 20px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-radius: 7px;
+
+    &:hover {
+        background-color: variables.$grey-50;
+    }
+
+    &.selected {
+        background-color: variables.$grey-100;
+    }
+
+    .number-badge {
+        font-weight: 600;
+        width: 50px;
+        height: 30px;
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        background-color: variables.$grey-100;
+        
+        &.selected {
+            background-color: variables.$surface-50;
+        }
+    }
+}
