@@ -36,7 +36,6 @@ export class DragScrollDirective {
     if (!this.mouseDown) {
       return;
     }
-    console.log(e);
     const x = e.pageX - el.offsetLeft;
     const scroll = x - this.startX;
     el.scrollLeft = this.scrollLeft - scroll;

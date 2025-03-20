@@ -54,4 +54,12 @@ export class SigninComponent implements OnInit {
   openTaskItemDetails(): void {
     console.log("open task item details sidebar");
   }
+
+  toggleDoneTask(isDone: boolean): void {
+    console.log(isDone);
+  }
+
+  toggleImportantTask(isImportant: boolean) {
+    console.log(isImportant);
+  }
 }
