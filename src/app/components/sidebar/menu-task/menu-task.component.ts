@@ -12,7 +12,7 @@ export class MenuTaskComponent {
   selectedTaskItems: Array<any> = [
     {
       "name": "today",
-      "value": false
+      "value": true
     },
     {
       "name": "upcoming",

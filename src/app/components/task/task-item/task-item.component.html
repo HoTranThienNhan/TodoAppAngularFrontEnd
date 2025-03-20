@@ -1,0 +1,39 @@
+<div class="task-item">
+    <div class="task-item-content flex relative" [class]="{'selected': isSelectedItem()}">
+        <input type="checkbox" class="checkbox cursor-pointer" [checked]="isDone()">
+        <svg class="important cursor-pointer" [class]="{'checked': isImportant()}" #importantEl
+            (click)="checkAsImportant()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+            fill="none">
+            <path
+                d="M9.99996 1.66667L12.575 6.88334L18.3333 7.72501L14.1666 11.7833L15.15 17.5167L9.99996 14.8083L4.84996 17.5167L5.83329 11.7833L1.66663 7.72501L7.42496 6.88334L9.99996 1.66667Z"
+                stroke="#EE9322" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div class="flex flex-col w-[400px]">
+            <div class="task-content" [class.font-bold]="isSelectedItem()">
+                {{ content() }}
+            </div>
+            @if (subtaskQuantity() > 0 || tags().length > 0) {
+            <div class="task-details flex flex-row">
+                @if (subtaskQuantity() > 0) {
+                <div class="subtasks flex flex-row items-center">
+                    <div class="number-badge">{{ subtaskQuantity() }}</div>
+                    <div>Subtask{{ subtaskQuantity() > 1 ? 's' : '' }}</div>
+                </div>
+                }
+                <div class="tags h-[22px] flex flex-row" appDragScroll>
+                    @for (tag of tags(); track tag) {
+                    <app-tag>{{ tag }}</app-tag>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+        <div class="absolute end-[10px] cursor-pointer">
+            <svg (click)="openTaskItemDetails()" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="#66707A" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+    </div>
+</div>

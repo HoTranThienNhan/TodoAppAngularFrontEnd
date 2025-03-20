@@ -1,0 +1,67 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+.task-item {
+    padding: 5px 0px;
+    border-top: 1px solid variables.$surface-200;
+
+    .task-item-content {
+        padding: 5px 10px;
+
+        &.selected {
+            background-color: #e9e8e84d;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            margin-top: 3px;
+            accent-color: variables.$success-300;
+        }
+
+        svg.important {
+            margin-right: 10px;
+
+            path {
+                fill: #fff;
+            }
+
+            &.checked {
+                path {
+                    fill: #EE9322;
+                }
+            }
+        }
+
+        .task-content {
+            font-size: 16px;
+        }
+
+        .task-details {
+            margin-top: 12px;
+            font-size: 14px !important;
+
+            .subtasks {
+                margin-right: 20px;
+
+                .number-badge {
+                    margin-right: 6px;
+                    align-items: center;
+                    font-weight: 600;
+                    width: 40px;
+                    height: 20px;
+                    border-radius: 7px;
+                    display: flex;
+                    justify-content: center;
+                    background-color: variables.$grey-100;
+                }
+            }
+
+            .tags {
+                overflow: hidden;
+                cursor: grab;
+                user-select: none;
+            }
+        }
+    }
+}

@@ -6,8 +6,13 @@
     min-width: 70px;
     font-size: 16px;
     width: fit-content;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: variables.$surface-400;
+
+    &.tag--sm {
+        font-size: 14px;
+    }
 }

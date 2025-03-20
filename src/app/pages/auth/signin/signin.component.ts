@@ -5,11 +5,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { InputSearchComponent } from "../../../components/inputs/input-search/input-search.component";
 import { TagComponent } from '../../../components/tag/tag.component';
 import { AddTagComponent } from "../../../components/modals/add-tag/add-tag.component";
-import { MenuTaskItemsComponent } from "../../../components/sidebar/menu-task-items/menu-task-items.component";
 import { MenuTaskComponent } from "../../../components/sidebar/menu-task/menu-task.component";
+import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, ],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
@@ -49,5 +49,9 @@ export class SigninComponent implements OnInit {
   // methods
   onButtonSearchClick(searchValue: string): void {
     console.log(searchValue);
+  }
+  
+  openTaskItemDetails(): void {
+    console.log("open task item details sidebar");
   }
 }
