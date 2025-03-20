@@ -1,0 +1,13 @@
+@use "../../../../public/assets/sass/abstracts/variables";
+
+.tag {
+    border-radius: 7px;
+    padding: 9px 10px;
+    min-width: 70px;
+    font-size: 16px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: variables.$surface-400;
+}

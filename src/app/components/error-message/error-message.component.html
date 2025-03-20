@@ -1,0 +1,5 @@
+<div class="error-message">
+    @if (control()?.hasError('required') && control()?.touched) {
+        {{ fieldTitle() }} is required.
+    }
+</div>

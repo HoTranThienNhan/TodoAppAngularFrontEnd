@@ -1,0 +1,58 @@
+::ng-deep .ant-modal-header {
+    border-radius: 10px !important; 
+    padding: 0;
+    border: 0;
+}
+
+::ng-deep .ant-modal-content {
+    border-radius: 10px !important;
+    padding: 30px 35px 30px 40px;
+    min-width: 700px;
+    
+    .ant-modal-title {
+        font-size: 34px!important;
+    }
+
+    .ant-modal-close-x {
+        width: 16px;
+        height: 16px;
+        margin: 15px 35px 0px 0px;
+
+        .ant-modal-close-icon {
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
+
+::ng-deep .ant-modal-body {
+    padding-top: 65px;
+    padding-bottom: 80px;
+}
+
+::ng-deep .ant-modal-footer {
+    border: 0;
+}
+
+.add-tag-label {
+    font-size: 20px;
+    margin-right: 60px;
+}
+
+.select-tag-input {
+    width: 100%;
+
+    nz-select {
+        ::ng-deep nz-select-top-control {
+            border-radius: 8px;
+            padding: 5px 10px;
+
+            nz-select-item {
+                border-radius: 7px;
+                margin-right: 10px;
+            }
+        }
+    }
+}

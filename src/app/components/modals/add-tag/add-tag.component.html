@@ -1,0 +1,26 @@
+<app-tag color="#E9E8E8" hoverColor="#848484" class="cursor-pointer" (click)="showModal()">+ {{ addTagModalTitle() }}</app-tag>
+<nz-modal class="add-tag-modal" nzMaskClosable="false" [nzTitle]="modalTitle" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-template #modalTitle>{{ addTagModalTitle() }}</ng-template>
+  <ng-container *nzModalContent>
+      <div class="flex">
+        <div class="add-tag-label">Name</div>
+        @if (addTagModalTitle() === 'Add Tag') {
+          <div class="add-tag-input w-full">
+            <input type="text" placeholder="Value" [(ngModel)]="addedTag" class="border border-[#E9E8E8] rounded-[8px] w-full leading-[30px]! px-[10px]! py-[5px]!">
+          </div>
+        } @else if (addTagModalTitle() === 'Select Tags') {
+          <div class="select-tag-input">
+            <nz-select class="w-full rounded-[8px]!" nzMode="tags" nzPlaceHolder="Value" [(ngModel)]="selectedTags">
+              @for (tagOpt of tags; track tagOpt) {
+                <nz-option [nzLabel]="tagOpt" [nzValue]="tagOpt"></nz-option>
+              }
+            </nz-select>
+          </div>
+        }
+        </div>
+    </ng-container>
+    <div class="flex justify-end" *nzModalFooter>
+        <app-button class="me-[20px]" buttonType="Cancel" nzType="default" (click)="handleCancel()">Cancel</app-button>
+        <app-button buttonType="Ok" nzType="primary" (click)="handleOk()">{{ addTagModalTitle() === 'Add Tag' ? 'Add' : 'Select' }}</app-button>
+      </div>
+  </nz-modal>

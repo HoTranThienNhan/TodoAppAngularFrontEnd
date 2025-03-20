@@ -3,10 +3,11 @@ import { InputComponent } from '../../../components/inputs/input/input.component
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputSearchComponent } from "../../../components/inputs/input-search/input-search.component";
-
+import { TagComponent } from '../../../components/tag/tag.component';
+import { AddTagComponent } from "../../../components/modals/add-tag/add-tag.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })

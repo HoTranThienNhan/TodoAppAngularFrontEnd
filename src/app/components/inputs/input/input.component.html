@@ -4,9 +4,10 @@
     </div>
 }
 <input 
-    class="border"
-    [class.error]="isError()"
+    class="border mt-[8px]"
+    [class.error]="!control().valid && control().touched"
     [formControl]="control()" 
     [type]="type()" 
     [placeholder]="placeholder()" 
     [required]="required() == 'required' ? true : false">
+<app-error-message [control]="control()" [fieldTitle]="placeholder()"></app-error-message>

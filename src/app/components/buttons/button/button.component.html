@@ -1,3 +1,3 @@
-<button type="submit">
+<button type="submit" [style.background-color]="buttonType() === 'Default' ? '#202327' : buttonType() === 'Cancel' ? '#66707A' : '#F2AB53'">
     <ng-content></ng-content>
 </button>
