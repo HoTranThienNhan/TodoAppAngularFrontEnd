@@ -7,9 +7,10 @@ import { TagComponent } from '../../../components/tag/tag.component';
 import { AddTagComponent } from "../../../components/modals/add-tag/add-tag.component";
 import { MenuTaskComponent } from "../../../components/sidebar/menu-task/menu-task.component";
 import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
+import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, ],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, DatePickerComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
@@ -59,7 +60,11 @@ export class SigninComponent implements OnInit {
     console.log(isDone);
   }
 
-  toggleImportantTask(isImportant: boolean) {
+  toggleImportantTask(isImportant: boolean): void {
     console.log(isImportant);
+  }
+
+  changeDate(date: Date): void {
+    console.log(date);
   }
 }

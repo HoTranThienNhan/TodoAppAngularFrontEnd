@@ -1,31 +1,40 @@
-<div>
-    <form [formGroup]="signInForm" action="">
-        <app-input type="text" label="Email" placeholder="Email" required="required" [control]="email"></app-input>
-        <app-input type="password" label="Password" placeholder="Password" required="required"
-            [control]="password"></app-input>
-        <app-button>
-            <span class="uppercase">Sign In</span>
-        </app-button>
-    </form>
-    <form [formGroup]="searchForm">
-        <app-input-search placeholder="Search" (searchSelect)="onButtonSearchClick($event)"></app-input-search>
-    </form>
-</div>
+<div class="pb-[50px]">
+    <div>
+        <form [formGroup]="signInForm" action="">
+            <app-input type="text" label="Email" placeholder="Email" required="required" [control]="email"></app-input>
+            <app-input type="password" label="Password" placeholder="Password" required="required"
+                [control]="password"></app-input>
+            <app-button>
+                <span class="uppercase">Sign In</span>
+            </app-button>
+        </form>
+        <form [formGroup]="searchForm">
+            <app-input-search placeholder="Search" (searchSelect)="onButtonSearchClick($event)"></app-input-search>
+        </form>
+    </div>
 
-<div class="mt-3 flex">
-    <app-tag>Tag 1</app-tag>
-    <app-add-tag addTagModalTitle="Add Tag"></app-add-tag>
-    <app-add-tag addTagModalTitle="Select Tags"></app-add-tag>
-</div>
+    <div class="mt-3 flex">
+        <app-tag>Tag 1</app-tag>
+        <app-add-tag addTagModalTitle="Add Tag"></app-add-tag>
+        <app-add-tag addTagModalTitle="Select Tags"></app-add-tag>
+    </div>
 
-<div class="mt-3 w-[400px]">
-    <app-menu-task></app-menu-task>
-</div>
+    <div class="mt-3 w-[400px]">
+        <app-menu-task></app-menu-task>
+    </div>
 
-<div class="mt-3 w-[500px]">
-    <app-task-item content="Go to the market" [subtaskQuantity]="2" [tags]="['Market', 'Work', 'kk', 'ggg', 'uu', 'll']"
-        [isDone]="true" [isImportant]="false" [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails()"
-        (doneTaskEventEmitter)="toggleDoneTask($event)" (importantTaskEventEmitter)="toggleImportantTask($event)"></app-task-item>
-    <app-task-item content="Go to work" [tags]="['Work']" [isDone]="false" [isImportant]="false"
-        (taskItemEventEmitter)="openTaskItemDetails()" (doneTaskEventEmitter)="toggleDoneTask($event)"></app-task-item>
+    <div class="mt-3 w-[500px]">
+        <app-task-item content="Go to the market" [subtaskQuantity]="2"
+            [tags]="['Market', 'Work', 'kk', 'ggg', 'uu', 'll']" [isDone]="true" [isImportant]="false"
+            [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails()"
+            (doneTaskEventEmitter)="toggleDoneTask($event)"
+            (importantTaskEventEmitter)="toggleImportantTask($event)"></app-task-item>
+        <app-task-item content="Go to work" [tags]="['Work']" [isDone]="false" [isImportant]="false"
+            (taskItemEventEmitter)="openTaskItemDetails()"
+            (doneTaskEventEmitter)="toggleDoneTask($event)"></app-task-item>
+    </div>
+
+    <div class="mt-3">
+        <app-date-picker (dateChangeEventEmit)="changeDate($event)"></app-date-picker>
+    </div>
 </div>

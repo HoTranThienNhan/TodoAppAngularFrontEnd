@@ -1,0 +1,19 @@
+.date-picker {
+    nz-date-picker {
+        border: 0px;
+        padding-right: 0;
+        padding-left: 0;
+
+        &.ant-picker-focused {
+            box-shadow: none;
+        }
+
+        ::ng-deep svg {
+            display: none;
+        }
+
+        ::ng-deep input {
+            width: 73px !important;
+        }
+    }
+}
