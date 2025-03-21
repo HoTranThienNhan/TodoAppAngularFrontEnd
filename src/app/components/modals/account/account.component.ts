@@ -17,6 +17,7 @@ export class AccountComponent implements OnInit {
   accountForm!: FormGroup;
   account = input<{
     id: string,
+    username: string,
     firstName: string,
     lastName: string,
     email: string,
@@ -24,14 +25,16 @@ export class AccountComponent implements OnInit {
     avatar: string
   }>({
     id: 'userid',
+    username: 'username',
     firstName: 'First Name',
-    lastName: 'Last Name',
+    lastName: '',
     email: 'email@gmail.com',
     phone: '0123456789',
     avatar: '../assets/images/avatar.jpg'
   });
   changeAccountEventEmitter = output<{
     id: string,
+    username: string,
     firstName: string,
     lastName: string,
     email: string,

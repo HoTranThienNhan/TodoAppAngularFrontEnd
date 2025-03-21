@@ -1,14 +1,17 @@
 import { Component, input } from '@angular/core';
+import { FullNamePipe } from '../../pipes/full-name.pipe';
 
 @Component({
   selector: 'app-avatar-profile',
-  imports: [],
+  imports: [FullNamePipe],
   templateUrl: './avatar-profile.component.html',
   styleUrl: './avatar-profile.component.scss'
 })
 export class AvatarProfileComponent {
   // props
-  username = input<string>("Username");
+  firstName = input<string>("First Name");
+  lastName = input<string>("");
+  username = input<string>("username");
   userId = input<string>("userid");
   avatarSrc = input<string>("");
 }
