@@ -1,0 +1,47 @@
+@use "../../../../public/assets/sass/abstracts/variables";
+
+.subtask {
+    .title {
+        font-weight: bold;
+        font-size: 24px;
+        color: variables.$surface-400;
+        margin-bottom: 20px;
+    }
+
+    .add-new-subtask {
+        margin-bottom: 20px;
+
+        input {
+            margin-left: 10px;
+            
+            &::placeholder {
+                font-size: 16px;
+                color: variables.$surface-200;
+            }
+
+            &:focus {
+                border: 0;
+                outline: none;
+            }
+        }
+    }
+
+    .subtasks-list {
+        .subtask-item {
+            margin-bottom: 15px;
+
+            .checkbox {
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+                margin-right: 10px;
+                accent-color: variables.$success-300;
+            }
+
+            span {
+                font-size: 16px;
+                color: variables.$surface-400;
+            }
+        }
+    }
+}
