@@ -1,3 +1,5 @@
+@use "../../../../public/assets/sass/abstracts/variables";
+
 .avatar-profile {
     .avatar-img {
         border-radius: 50%;
@@ -8,5 +10,11 @@
     .username {
         font-size: 24px;
         font-weight: bold;
+        line-height: 25px;
+    }
+
+    .user-id {
+        font-size: 14px;
+        color: variables.$surface-200;
     }
 }

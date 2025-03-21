@@ -9,5 +9,6 @@ import { Component, input } from '@angular/core';
 export class AvatarProfileComponent {
   // props
   username = input<string>("Username");
+  userId = input<string>("userid");
   avatarSrc = input<string>("");
 }

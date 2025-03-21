@@ -1,0 +1,59 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+::ng-deep .account-modal {
+    .ant-modal-content {
+        padding: 10px!important;
+    }
+    
+    .ant-modal-body {
+        padding: 0px;
+    
+        .heading {
+            background-color: variables.$grey-50;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            min-height: 100px;
+    
+            .profile-avatar {
+                position: absolute;
+                margin: 0 0 0 30px;
+                border-radius: 50%;
+                object-fit: cover;
+                top: 50px;
+                border: 5px solid variables.$surface-50;
+            }
+        }
+    
+        .content {
+            margin: 65px 50px 0 50px;
+    
+            .fullname {
+                font-size: 32px;
+                font-weight: bold;
+            }
+    
+            .user-id {
+                font-size: 18px;
+                color: variables.$surface-200;
+            }
+    
+            form {
+                margin-top: 44px;
+    
+                .form-group {
+                    margin-bottom: 27px;
+
+                    .title {
+                        font-size: 20px;
+                    }
+
+                    .profile-avatar {
+                        border-radius: 50%;
+                        object-fit: cover;
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

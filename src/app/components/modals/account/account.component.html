@@ -1,0 +1,44 @@
+<nz-modal nzWrapClassName="account-modal" nzMaskClosable="false" [(nzVisible)]="isVisible" [nzClosable]="false" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <div class="relative heading">
+            <div></div>
+            <img class="profile-avatar" [src]="avatar.value" width="100" height="100" draggable="false" />
+        </div>
+        <div class="content">
+            <div class="fullname">{{ account().firstName | fullName : account().lastName }}</div>
+            <div class="user-id">&#64;{{ account().id }}</div>
+            <form>
+                <div class="form-group grid grid-cols-6 items-center">
+                    <span class="title">Name</span>
+                    <div class="col-span-5 h-[40px] flex flex-row gap-[25px] w-full">
+                        <app-input placeholder="First Name" class="grow-1" [control]="firstName"></app-input>
+                        <app-input placeholder="Last Name" class="grow-1" required="optional" [control]="lastName"></app-input>
+                    </div>
+                </div>
+                <div class="form-group grid grid-cols-6 justify-between items-center">
+                    <span class="title">Email</span>
+                    <div class="col-span-5 h-[40px]">
+                        <app-input placeholder="Email" [control]="email"></app-input>
+                    </div>
+                </div>
+                <div class="form-group grid grid-cols-6 justify-between items-center">
+                    <span class="title">Phone</span>
+                    <div class="col-span-5 h-[40px]">
+                        <app-input placeholder="Phone" [control]="phone"></app-input>
+                    </div>
+                </div>
+                <div class="form-group grid grid-cols-6 justify-between items-center">
+                    <span class="title">Avatar</span>
+                    <div class="col-span-5 flex flex-row items-center">
+                        <img class="profile-avatar" [src]="avatar.value" width="70" height="70" draggable="false" />
+                        <app-button buttonAction="button" buttonType="Outline" buttonSize="sm">Replace</app-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-container>
+    <div class="flex justify-end" *nzModalFooter>
+        <app-button class="me-[20px]" buttonType="Cancel" nzType="default" (click)="handleCancel()">Cancel</app-button>
+        <app-button buttonType="Ok" nzType="primary" (click)="handleOk()">Save Changes</app-button>
+      </div>
+</nz-modal>

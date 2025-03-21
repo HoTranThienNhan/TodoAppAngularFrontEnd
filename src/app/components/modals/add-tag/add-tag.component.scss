@@ -1,5 +1,9 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+$colors: variables.$warning-100, variables.$danger-50, variables.$secondary-50;
+$repeat: 10;
+
 ::ng-deep .ant-modal-header {
-    border-radius: 10px !important; 
+    border-radius: 10px !important;
     padding: 0;
     border: 0;
 }
@@ -8,9 +12,9 @@
     border-radius: 10px !important;
     padding: 30px 35px 30px 40px;
     min-width: 700px;
-    
+
     .ant-modal-title {
-        font-size: 34px!important;
+        font-size: 34px !important;
     }
 
     .ant-modal-close-x {
@@ -49,9 +53,12 @@
             border-radius: 8px;
             padding: 5px 10px;
 
-            nz-select-item {
-                border-radius: 7px;
-                margin-right: 10px;
+            @for $i from 1 through $repeat {
+                nz-select-item:nth-child(#{$i}) {
+                    border-radius: 7px;
+                    margin-right: 10px;
+                    background-color: nth($colors, random(length($colors)));
+                }
             }
         }
     }

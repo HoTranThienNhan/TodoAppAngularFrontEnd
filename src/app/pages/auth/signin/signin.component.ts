@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { InputComponent } from '../../../components/inputs/input/input.component';
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,13 +10,14 @@ import { TaskItemComponent } from "../../../components/task/task-item/task-item.
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
 import { SubtaskComponent } from "../../../components/subtask/subtask.component";
 import { AvatarProfileComponent } from "../../../components/avatar-profile/avatar-profile.component";
+import { AccountComponent } from "../../../components/modals/account/account.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, DatePickerComponent, SubtaskComponent, AvatarProfileComponent],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, DatePickerComponent, SubtaskComponent, AvatarProfileComponent, AccountComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, AfterViewInit {
   // props
   signInForm!: FormGroup;
   searchForm!: FormGroup;
@@ -39,21 +40,26 @@ export class SigninComponent implements OnInit {
 
   // hooks
   ngOnInit(): void {
-      this.signInForm = this.fb.group({
-        email: ['123', [Validators.required]],
-        password: ['', [Validators.required]],
-      });
+    this.signInForm = this.fb.group({
+      email: ['123', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
 
-      this.searchForm = this.fb.group({
-        search: ['']
-      });
+    this.searchForm = this.fb.group({
+      search: ['']
+    });
+  }
+
+  @ViewChild(AccountComponent) accountComp!: AccountComponent;
+  ngAfterViewInit(): void {
+
   }
 
   // methods
   onButtonSearchClick(searchValue: string): void {
     console.log(searchValue);
   }
-  
+
   openTaskItemDetails(): void {
     console.log("open task item details sidebar");
   }
@@ -70,7 +76,7 @@ export class SigninComponent implements OnInit {
     console.log(date);
   }
 
-  toggleDoneSubtask(subtask: {'id': string, 'isDone': boolean}): void {
+  toggleDoneSubtask(subtask: { 'id': string, 'isDone': boolean }): void {
     console.log(subtask);
   }
 
@@ -80,5 +86,20 @@ export class SigninComponent implements OnInit {
 
   deleteSubtask(id: string): void {
     console.log(id);
+  }
+
+  openAccountModal(): void {
+    this.accountComp.showModal();
+  }
+
+  updateAccount(account: {
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    avatar: string
+  }): void {
+    console.log(account);
   }
 }
