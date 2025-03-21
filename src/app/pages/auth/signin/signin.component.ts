@@ -9,9 +9,10 @@ import { MenuTaskComponent } from "../../../components/sidebar/menu-task/menu-ta
 import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
 import { SubtaskComponent } from "../../../components/subtask/subtask.component";
+import { AvatarProfileComponent } from "../../../components/avatar-profile/avatar-profile.component";
 @Component({
   selector: 'app-signin',
-  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, DatePickerComponent, SubtaskComponent],
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule, InputSearchComponent, TagComponent, AddTagComponent, MenuTaskComponent, TaskItemComponent, DatePickerComponent, SubtaskComponent, AvatarProfileComponent],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
