@@ -10,9 +10,9 @@ import { ErrorMessageComponent } from "../../error-message/error-message.compone
 })
 export class InputComponent {
   // props
-  type = input<string>("text");
+  type = input<'text' | 'password'>("text");
   placeholder = input<string>("Placeholder");
   label = input<string | undefined>("");
-  required = input<"required" | "optional">("required");
+  required = input<"required" | "optional">("optional");
   control = input<FormControl>(new FormControl());
 }

@@ -1,5 +1,19 @@
 <div class="error-message">
     @if (control()?.hasError('required') && control()?.touched) {
         {{ fieldTitle() }} is required.
-    }
+    } @else if (control()?.hasError('invalidPhone')) {
+        {{ fieldTitle() }} is invalid.
+    } @else if (control()?.hasError('email')) {
+        {{ fieldTitle() }} is invalid.
+    } @else if (control()?.hasError('invalidPassword')) {
+        {{ fieldTitle() }} must have minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+    } @else if (control()?.hasError('invalidPassword')) {
+        {{ fieldTitle() }} must have minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+    } @else if (control()?.hasError('maxlength')) {
+        {{ fieldTitle() }} must have maximum {{ control()?.getError("maxlength")['requiredLength'] }} characters.
+    } @else if (control()?.hasError('minlength')) {
+            {{ fieldTitle() }} must have minimum {{ control()?.getError("minlength")['requiredLength'] }} characters.
+    } @else if (control()?.hasError('invalidOnlyLetters')) {
+        {{ fieldTitle() }} must only contains letters.
+    } 
 </div>

@@ -1,4 +1,18 @@
-<section>
-    <h1>THIS IS HOME PAGE</h1>
-    <button (click)="navigateToLoginPage()">Go to Login</button>
+<section class="homepage">
+    <div class="content max-w-[760px] w-[760px]">
+        <div class="text-[71px] font-bold">
+            Manage Your Tasks 
+            with TodoTask
+        </div>
+        <div class="introduction">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+        </div>
+        <div class="buttons flex flex-row gap-[20px]">
+            <app-button class="grow-1" buttonType="Default" (click)="navigateToLoginPage()">SIGN IN</app-button>
+            <app-button class="grow-1" buttonType="Default" (click)="navigateToSignUpPage()">SIGN UP</app-button>
+        </div>
+    </div>
+    <div class="logo">
+        <img src="../assets/images/homepage/homepage-logo.png" />
+    </div>
 </section>

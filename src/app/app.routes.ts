@@ -13,4 +13,8 @@ export const routes: Routes = [
         path: 'signup',
         loadComponent: () => import('./pages/auth/signup/signup.component').then(c => c.SignupComponent)
     },
+    {
+        path: 'verify-email',
+        loadComponent: () => import('./pages/auth/verify-email/verify-email.component').then(c => c.VerifyEmailComponent)
+    },
 ];

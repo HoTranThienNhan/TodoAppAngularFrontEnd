@@ -1,0 +1,64 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+.verify-email {
+    min-height: 100vh;
+    background-color: #E6E6E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content {
+        max-width: 551px;
+        width: 551px;
+        padding: 55px 55px 45px 55px;
+        background-color: #fff;
+        border-radius: 15px;
+
+        .title {
+            font-size: 42px;
+            line-height: 42px;
+            margin-bottom: 75px;
+        }
+
+        .notification {
+            font-size: 18px;
+            margin-bottom: 71px;
+        }
+
+        app-input-otp {
+            margin-bottom: 20px;
+        }
+
+        .otp-timer {
+            font-size: 16px;
+            color: variables.$surface-200;
+        }
+        
+        app-button {
+            margin-top: 34px;
+            width: 100%;
+            padding: 0 70px;
+        }
+
+        .error-message {
+            margin-top: 13px;
+            font-size: 15px;
+            color: variables.$danger-200;
+        }
+
+        .request-again {
+            margin-top: 45px;
+            color: variables.$surface-200;
+            
+            .request-again-link {
+                font-weight: bold;
+                text-decoration: underline;
+                
+                &.active {
+                    cursor: pointer;
+                    color: variables.$secondary-200;
+                }
+            }
+        }
+    }
+}

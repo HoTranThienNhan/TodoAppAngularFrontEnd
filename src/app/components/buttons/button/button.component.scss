@@ -7,8 +7,17 @@ button {
     border-radius: 8px;
     width: 100%;
     min-width: 135px;
+    height: 40px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.disabled {
+        background-color: variables.$surface-200!important;
+        cursor: not-allowed;
+    }
 
     &:hover {
         background-color: variables.$surface-300;

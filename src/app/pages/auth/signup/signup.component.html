@@ -1,1 +1,25 @@
-<p>signup works!</p>
+<section class="signup">
+    <div class="content">
+        <div class="title">
+            Sign Up
+        </div>
+        <div class="inputs">
+            <form>
+                <app-input class="first-name" type="text" label="First Name" placeholder="First name" required="required"
+                    [control]="firstName"></app-input>
+                <app-input class="last-name" type="text" label="Last Name" placeholder="Last name" required="optional"
+                    [control]="lastName"></app-input>
+                <app-input class="username" type="text" label="Username" placeholder="Username" required="required"
+                    [control]="username"></app-input>
+                <app-input class="phone" type="text" label="Phone" placeholder="Phone" required="required"
+                    [control]="phone"></app-input>
+                <app-input class="email" type="text" label="Email" placeholder="Email" required="required"
+                    [control]="email"></app-input>
+                <app-input class="password" type="password" label="Password" placeholder="Password" required="required"
+                    [control]="password"></app-input>
+                <app-button (click)="signUp()" buttonAction="button">SIGN UP</app-button>
+            </form>
+        </div>
+        <div class="go-to-signin">Already have an account?&nbsp;<a routerLink="/signin">Sign In</a></div>
+    </div>
+</section>

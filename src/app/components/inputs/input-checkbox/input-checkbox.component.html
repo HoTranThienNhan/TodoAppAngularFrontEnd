@@ -1,0 +1,4 @@
+<div class="flex flex-row items-center">
+    <input type="checkbox" [name]="checkboxName()" [id]="checkboxId()" [ngModel]="value" (ngModelChange)="emitCheckboxValue($event)">
+    <label [for]="checkboxId()">{{ label() }}</label>
+</div>

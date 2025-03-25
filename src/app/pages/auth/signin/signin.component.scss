@@ -1,0 +1,78 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+.signin {
+    min-height: 100vh;
+    background-color: #E6E6E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content {
+        max-width: 551px;
+        width: 551px;
+        padding: 55px 55px 45px 55px;
+        background-color: #fff;
+        border-radius: 15px;
+        height: 100%;
+
+        .title {
+            font-size: 42px;
+            line-height: 42px;
+            margin-bottom: 30px;
+        }
+
+        .inputs {
+            form {
+                display: grid;
+                grid-template-areas: 
+                    "email email"
+                    "password password"
+                    "button button";
+                column-gap: 18px;
+                row-gap: 18px;
+    
+                .email {
+                    grid-area: email;
+                }
+    
+                .password {
+                    grid-area: password;
+                }
+
+                .forgot-password {
+                    font-size: 14px;
+                    color: variables.$danger-200;
+                    font-weight: bold;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: end;
+
+                    &:hover {
+                        color: variables.$danger-300;
+                    }
+                }
+
+                app-button {
+                    grid-area: button;
+                    margin-top: 13px;
+                }
+            }
+        }
+
+        .go-to-signup {
+            font-size: 16px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+
+            a {
+                color: variables.$secondary-200;
+                text-decoration: underline;
+
+                &:hover {
+                    color: variables.$secondary-300;
+                }
+            }
+        }
+    }
+}

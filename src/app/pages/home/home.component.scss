@@ -1,0 +1,29 @@
+@use "../../../../public/assets/sass/abstracts/variables";
+
+.homepage {
+    padding: 80px 0px 80px 135px;
+    position: relative;
+
+    .content {
+        .introduction {
+            margin-top: 13px;
+            color: variables.$surface-200;
+            width: 465px;
+            font-size: 24px;
+            line-height: 45px;
+        }
+
+        .buttons {
+            margin-top: 66px;
+            width: 385px;
+        }
+    }
+
+    .logo {
+        position: absolute;
+        top: 177px;
+        right: 50px;
+        width: 850px;
+        height: 530px;
+    }
+}
