@@ -4,6 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { Router, RouterLink } from '@angular/router';
 import { ValidatorsService } from '../../../services/validators/validators.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { RegisterDto } from '../../../models/auth/register-dto.model';
+import { catchError, EMPTY } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-signup',
@@ -14,11 +18,14 @@ import { ValidatorsService } from '../../../services/validators/validators.servi
 export class SignupComponent implements OnInit {
   // props
   signUpForm!: FormGroup;
+  userRegister!: RegisterDto;
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
   validatorsService: ValidatorsService = inject(ValidatorsService);
   router: Router = inject(Router);
+  authService: AuthService = inject(AuthService);
+  message: NzMessageService = inject(NzMessageService);
 
   // getters, setters
   get firstName(): FormControl {
@@ -59,10 +66,44 @@ export class SignupComponent implements OnInit {
 
   // methos
   signUp(): void {
-    console.log(this.signUpForm.value);
+    this.userRegister = {
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      username: this.username.value,
+      phone: this.phone.value,
+      email: this.email.value,
+      password: this.password.value
+    };
 
     if (this.signUpForm.valid) {
-      this.router.navigate(['verify-email']);
+      this.authService.register(this.userRegister).pipe(
+        catchError((err) => {
+          console.log(err);
+
+          this.message.error('Some error occurred during your registration!', {
+            nzDuration: 3000,
+            nzPauseOnHover: true,
+          });
+
+          return EMPTY;
+        })
+      ).subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.message.success('Please verify your email!', {
+            nzDuration: 3000,
+            nzPauseOnHover: true,
+          });
+
+          this.router.navigate(['verify-email'], {
+            queryParams: { 
+              email: this.email.value, 
+              firstName: this.firstName.value 
+            }
+          });
+        }
+      });
     } else {
       this.signUpForm.markAllAsTouched();
     }

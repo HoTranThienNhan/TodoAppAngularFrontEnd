@@ -5,7 +5,7 @@
         </div>
         <div class="flex flex-col items-center">
             <div class="notification">
-                Your code was sent to you via <strong>{{ email() }}</strong>
+                Your code was sent to you via <strong>{{ email }}</strong>
             </div>
             <app-input-otp (changeOtpInputEventEmitter)="onOtpChange($event)"></app-input-otp>
             <div class="otp-timer">
@@ -14,7 +14,7 @@
                     (onDoneEventEmitter)="onCdOtpDone($event)"></app-countdown-timer>
             </div>
             <app-button (click)="verifyCode()" [disabled]="this.otpValue.length !== 6">VERIFY</app-button>
-            <div class="error-message">{{ errorMessage() }}</div>
+            <div class="error-message">{{ errorMessage }}</div>
             <div class="request-again">
                 Didn’t receive code? <span class="request-again-link" [class.active]="!isRequested"
                     (click)="sendRequest()">Request again</span>

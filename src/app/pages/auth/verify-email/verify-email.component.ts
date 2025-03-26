@@ -1,8 +1,12 @@
-import {  Component, inject, input, ViewChild } from '@angular/core';
+import {  Component, inject, ViewChild } from '@angular/core';
 import { InputOtpComponent } from "../../../components/inputs/input-otp/input-otp.component";
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { CountdownTimerComponent } from "../../../components/countdown-timer/countdown-timer.component";
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
+import { catchError, EMPTY } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-verify-email',
@@ -12,15 +16,24 @@ import { CountdownTimerComponent } from "../../../components/countdown-timer/cou
 })
 export class VerifyEmailComponent {
   // props
-  email = input<string>("email@gmail.com");
-  errorMessage = input<string>("Error message");
+  email: string = "";
+  errorMessage: string = "Error message";
+  firstName: string = "";
   otpValue: string = "";
   storedIsRequested = localStorage.getItem('isRequested');
   isRequested: boolean = this.storedIsRequested ? JSON.parse(this.storedIsRequested) : false;
   storedOtpTime = localStorage.getItem('countdownTimeOtp');
-  countdownTimeOtp: number = this.storedOtpTime ? Number(this.storedOtpTime) / 1000 : 20;
+  defaultCountdownTimeOtp: number = 300;  // 5 minutes
+  defaultCountdownTimeRequest: number = 60;   // 1 minute
+  countdownTimeOtp: number = this.storedOtpTime ? Number(this.storedOtpTime) / 1000 : this.defaultCountdownTimeOtp;
   storedRequestTime = localStorage.getItem('countdownTimeRequest');
-  countdownTimeRequest: number = this.storedRequestTime ? Number(this.storedRequestTime) / 1000 : 10;
+  countdownTimeRequest: number = this.storedRequestTime ? Number(this.storedRequestTime) / 1000 : this.defaultCountdownTimeRequest;
+
+  // injection
+  route: ActivatedRoute = inject(ActivatedRoute);
+  authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
+  message: NzMessageService = inject(NzMessageService);
 
   @ViewChild('cdRequest') countdownRequest!: CountdownTimerComponent;
   configCdRequest: CountdownConfig = {
@@ -60,14 +73,43 @@ export class VerifyEmailComponent {
     if (storedRequestTime) {
       this.storedIsRequested = storedIsRequested;
     }
+
+    // get email from queryParams
+    this.route.queryParams.subscribe(params => {
+      this.email = params['email'];
+      this.firstName = params['firstName'];
+    });
   }
 
   // methods
   sendRequest(): void {
     this.isRequested = true;
     localStorage.setItem('isRequested', 'true');
-    this.countdownOtp.restart(20);
-    this.countdownRequest.restart(10);
+
+    this.authService.resendCode(this.email, this.firstName).pipe(
+      catchError((err) => {
+        this.errorMessage = err.error.message;
+
+        this.message.error('Cannot resend OTP code via your email!', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+
+        return EMPTY;
+      })
+    ).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        this.message.success('Resend OTP code via your email successfully', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+
+        this.countdownOtp.restart(this.defaultCountdownTimeOtp);
+        this.countdownRequest.restart(this.defaultCountdownTimeRequest);
+      }
+    });
   }
 
   onCdRequestDone(e: CountdownEvent): void {
@@ -85,6 +127,29 @@ export class VerifyEmailComponent {
   }
 
   verifyCode(): void {
-    console.log(this.otpValue);
+    this.authService.confirmEmailRegister(this.email, this.otpValue).pipe(
+      catchError((err) => {
+        this.errorMessage = err.error.message;
+
+        this.message.error('Cannot confirm your email!', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+
+        return EMPTY;
+      })
+    ).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        this.message.success('Confirm your email successfully! Your account is registered!', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+
+        this.router.navigate(['signin']);
+      }
+    });
+
   }
 }
