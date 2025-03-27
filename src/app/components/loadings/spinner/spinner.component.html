@@ -1,0 +1,6 @@
+<ng-template #indicatorTemplate>
+    <nz-icon nzType="loading" class="text-[20px]" />
+</ng-template>
+<nz-spin [nzSpinning]="isLoading()" [nzTip]="title()" [nzIndicator]="indicatorTemplate">
+    <ng-content></ng-content>
+</nz-spin>

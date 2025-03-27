@@ -27,6 +27,7 @@
                 grid-template-areas: 
                     "email email"
                     "password password"
+                    "error error"
                     "button button";
                 column-gap: 18px;
                 row-gap: 18px;
@@ -52,7 +53,13 @@
                     }
                 }
 
-                app-button {
+                .error-response-message {
+                    grid-area: error;
+                    color: variables.$danger-200;
+                    font-size: 16px;
+                }
+
+                app-spinner {
                     grid-area: button;
                     margin-top: 13px;
                 }

@@ -13,8 +13,12 @@
                 <app-countdown-timer #cdOtp [config]="configCdOtp" localStorageVariable="countdownTimeOtp"
                     (onDoneEventEmitter)="onCdOtpDone($event)"></app-countdown-timer>
             </div>
-            <app-button (click)="verifyCode()" [disabled]="this.otpValue.length !== 6">VERIFY</app-button>
-            <div class="error-message">{{ errorMessage }}</div>
+            <app-spinner [isLoading]="isLoading">
+                <app-button (click)="verifyCode()" [disabled]="this.otpValue.length !== 6">VERIFY</app-button>
+            </app-spinner>
+            @if (errorMessage) {
+                <div class="error-message">{{ errorMessage }}</div>
+            }
             <div class="request-again">
                 Didn’t receive code? <span class="request-again-link" [class.active]="!isRequested"
                     (click)="sendRequest()">Request again</span>

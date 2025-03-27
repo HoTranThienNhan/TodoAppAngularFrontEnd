@@ -5,21 +5,23 @@ import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { CountdownTimerComponent } from "../../../components/countdown-timer/countdown-timer.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { SpinnerComponent } from "../../../components/loadings/spinner/spinner.component";
 
 @Component({
   selector: 'app-verify-email',
-  imports: [InputOtpComponent, ButtonComponent, CountdownTimerComponent],
+  imports: [InputOtpComponent, ButtonComponent, CountdownTimerComponent, SpinnerComponent],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss'
 })
 export class VerifyEmailComponent {
   // props
   email: string = "";
-  errorMessage: string = "Error message";
+  errorMessage: string = "";
   firstName: string = "";
   otpValue: string = "";
+  isLoading: boolean = false;
   storedIsRequested = localStorage.getItem('isRequested');
   isRequested: boolean = this.storedIsRequested ? JSON.parse(this.storedIsRequested) : false;
   storedOtpTime = localStorage.getItem('countdownTimeOtp');
@@ -124,10 +126,16 @@ export class VerifyEmailComponent {
 
   onOtpChange(otpValue: string): void {
     this.otpValue = otpValue;
+    // reset errorMessage when OTP value has been changed
+    this.errorMessage = "";
   }
 
   verifyCode(): void {
+    this.isLoading = true;
     this.authService.confirmEmailRegister(this.email, this.otpValue).pipe(
+      finalize(() => {
+        this.isLoading = false;
+      }),
       catchError((err) => {
         this.errorMessage = err.error.message;
 

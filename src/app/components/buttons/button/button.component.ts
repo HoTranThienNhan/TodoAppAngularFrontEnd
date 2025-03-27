@@ -16,6 +16,6 @@ export class ButtonComponent {
   // props
   buttonType = input<"Default" | "Cancel" | "Ok" | "Outline">("Default");
   buttonSize = input<"sm" | "md">("md");
-  buttonAction = input<"submit" | "button">("submit");
+  buttonAction = input<"submit" | "button">("button");
   disabled = input<boolean>(false);
 }

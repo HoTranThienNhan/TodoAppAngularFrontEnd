@@ -5,13 +5,14 @@ import { ButtonComponent } from "../../../components/buttons/button/button.compo
 import { Router, RouterLink } from '@angular/router';
 import { ValidatorsService } from '../../../services/validators/validators.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { RegisterDto } from '../../../models/auth/register-dto.model';
-import { catchError, EMPTY } from 'rxjs';
+import { RegisterDto } from '../../../models/auth/register-dto/register-dto.model';
+import { catchError, EMPTY, finalize } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { SpinnerComponent } from "../../../components/loadings/spinner/spinner.component";
 
 @Component({
   selector: 'app-signup',
-  imports: [InputComponent, ButtonComponent, RouterLink],
+  imports: [InputComponent, ButtonComponent, RouterLink, SpinnerComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -19,6 +20,7 @@ export class SignupComponent implements OnInit {
   // props
   signUpForm!: FormGroup;
   userRegister!: RegisterDto;
+  isLoading: boolean = false;
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
@@ -76,7 +78,11 @@ export class SignupComponent implements OnInit {
     };
 
     if (this.signUpForm.valid) {
+      this.isLoading = true;
       this.authService.register(this.userRegister).pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
         catchError((err) => {
           console.log(err);
 

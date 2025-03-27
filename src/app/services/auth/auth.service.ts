@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import * as globalVars from '../../../global';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterDto } from '../../models/auth/register-dto.model';
+import { RegisterDto } from '../../models/auth/register-dto/register-dto.model';
+import { SigninDto } from '../../models/auth/signin-dto/signin-dto.model';
+import { SigninResDto } from '../../models/auth/signin-res-dto/signin-res-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ export class AuthService {
 
   constructor() { }
 
+  // auth APIs
   apiUrl: string = globalVars.domain + '/auth';
   private http: HttpClient = inject(HttpClient);
   headers: HttpHeaders = new HttpHeaders({
@@ -40,5 +43,30 @@ export class AuthService {
       email: email,
       firstName: firstName
     });
+  }
+
+  signin(userSignin: SigninDto): Observable<SigninResDto> {
+    const fullApiUrl = this.apiUrl + "/login";
+
+    return this.http.post<SigninResDto>(fullApiUrl, userSignin);
+  }
+
+  getProfile(email: string): Observable<any> {
+    const fullApiUrl = this.apiUrl + "/profile" + `?email=${email}`;
+
+    return this.http.get<any>(fullApiUrl);
+  }
+
+  // tokens
+  setAccessToken(accessToken: string): void {
+    sessionStorage.setItem("accessToken", accessToken);
+  }
+
+  getAccessToken(): string | null {
+    return sessionStorage.getItem("accessToken");
+  }
+
+  removeAccessToken(accessToken: string): void {
+    sessionStorage.removeItem(accessToken);
   }
 }
