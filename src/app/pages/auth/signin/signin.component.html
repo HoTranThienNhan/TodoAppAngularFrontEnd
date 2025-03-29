@@ -4,20 +4,20 @@
             Sign In
         </div>
         <div class="inputs">
-            <form>
+            <form [formGroup]="signInForm" (submit)="signIn()">
                 <app-input class="email" type="text" label="Email" placeholder="Email" required="required"
                     [control]="email"></app-input>
                 <app-input class="password" type="password" label="Password" placeholder="Password" required="required"
                     [control]="password"></app-input>
                 <app-input-checkbox checkboxName="remember-me" checkboxId="remember-me" label="Remember Me" (checboxValueEventEmitter)="onCheckboxValueChange($event)"></app-input-checkbox>
-                <div class="forgot-password">
+                <div class="forgot-password" (click)="forgotPassword()">
                     Forgot password?
                 </div>
                 <div class="error-response-message" [class.hidden]="errorMessage.length === 0">
                     {{ errorMessage }}
                 </div>
                 <app-spinner [isLoading]="isLoading">
-                    <app-button (click)="signIn()">SIGN IN</app-button>
+                    <app-button buttonAction="submit">SIGN IN</app-button>
                 </app-spinner>
             </form>
         </div>

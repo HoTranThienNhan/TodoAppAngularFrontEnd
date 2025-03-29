@@ -17,4 +17,8 @@ export const routes: Routes = [
         path: 'verify-email',
         loadComponent: () => import('./pages/auth/verify-email/verify-email.component').then(c => c.VerifyEmailComponent)
     },
+    {
+        path: 'today',
+        loadComponent: () => import('./pages/todo-task/today/today.component').then(c => c.TodayComponent)
+    },
 ];

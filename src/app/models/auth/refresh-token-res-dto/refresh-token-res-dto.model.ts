@@ -1,6 +1,5 @@
-export class SigninResDto {
+export class RefreshTokenResDto {
     data?: {
-        email: string;
         accessToken: string;
     };
     message?: string;

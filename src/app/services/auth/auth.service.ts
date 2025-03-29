@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { RegisterDto } from '../../models/auth/register-dto/register-dto.model';
 import { SigninDto } from '../../models/auth/signin-dto/signin-dto.model';
 import { SigninResDto } from '../../models/auth/signin-res-dto/signin-res-dto.model';
+import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
+import { RegisterResDto } from '../../models/auth/register-res-dto/register-res-dto.model';
+import { RefreshTokenDto } from '../../models/auth/refresh-token-dto/refresh-token-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +24,16 @@ export class AuthService {
     'Accept': 'application/json',
   });
 
-  register(userRegister: RegisterDto): Observable<RegisterDto> {
+  register(userRegister: RegisterDto): Observable<RegisterResDto> {
     const fullApiUrl = this.apiUrl + "/register";
 
-    return this.http.post<RegisterDto>(fullApiUrl, userRegister);
+    return this.http.post<RegisterResDto>(fullApiUrl, userRegister);
   }
 
-  confirmEmailRegister(email: string, otpText: string): Observable<RegisterDto> {
+  confirmEmailRegister(email: string, otpText: string): Observable<RegisterResDto> {
     const fullApiUrl = this.apiUrl + "/confirmEmailRegister";
 
-    return this.http.post<RegisterDto>(fullApiUrl, {
+    return this.http.post<RegisterResDto>(fullApiUrl, {
       email: email,
       otpText: otpText
     });
@@ -45,10 +48,16 @@ export class AuthService {
     });
   }
 
-  signin(userSignin: SigninDto): Observable<SigninResDto> {
+  signin(userSignin: SigninDto): Observable<any> {
     const fullApiUrl = this.apiUrl + "/login";
 
-    return this.http.post<SigninResDto>(fullApiUrl, userSignin);
+    return this.http.post<any>(fullApiUrl, userSignin, { headers: this.headers, withCredentials: true });
+  }
+
+  refreshToken(userId: RefreshTokenDto): Observable<RefreshTokenResDto> {
+    const fullApiUrl = this.apiUrl + "/refreshToken";
+
+    return this.http.post<RefreshTokenResDto>(fullApiUrl, userId, { headers: this.headers, withCredentials: true });
   }
 
   getProfile(email: string): Observable<any> {

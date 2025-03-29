@@ -79,9 +79,22 @@ export class SignupComponent implements OnInit {
 
     if (this.signUpForm.valid) {
       this.isLoading = true;
+      this.firstName.disable();
+      this.lastName.disable();
+      this.username.disable();
+      this.phone.disable();
+      this.email.disable();
+      this.password.disable();
+
       this.authService.register(this.userRegister).pipe(
         finalize(() => {
           this.isLoading = false;
+          this.firstName.enable({emitEvent: false});
+          this.lastName.enable({emitEvent: false});
+          this.username.enable({emitEvent: false});
+          this.phone.enable({emitEvent: false});
+          this.email.enable({emitEvent: false});
+          this.password.enable({emitEvent: false});
         }),
         catchError((err) => {
           console.log(err);

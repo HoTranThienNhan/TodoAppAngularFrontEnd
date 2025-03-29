@@ -9,6 +9,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { SigninDto } from '../../../models/auth/signin-dto/signin-dto.model';
 import { catchError, EMPTY, finalize } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { UserStore } from '../../../store/user.store';
 
 @Component({
   selector: 'app-signin',
@@ -28,6 +29,7 @@ export class SigninComponent implements OnInit {
   authService: AuthService = inject(AuthService);
   message: NzMessageService = inject(NzMessageService);
   router: Router = inject(Router);
+  userStore = inject(UserStore);
 
   // getters, setters
   get email(): FormControl {
@@ -76,15 +78,13 @@ export class SigninComponent implements OnInit {
       this.authService.signin(this.userSignIn).pipe(
         finalize(() => {
           this.isLoading = false;
-          this.email.enable({emitEvent: false});
-          this.password.enable({emitEvent: false});
+          this.email.enable({ emitEvent: false });
+          this.password.enable({ emitEvent: false });
         }),
         catchError((err) => {
           console.log(err);
 
-          this.errorMessage = err.error;
-
-          console.log(this.errorMessage);
+          this.errorMessage = err.error.message;
 
           this.message.error('Some error occurred during your sign in!', {
             nzDuration: 3000,
@@ -95,7 +95,7 @@ export class SigninComponent implements OnInit {
         })
       ).subscribe({
         next: (res) => {
-          this.authService.setAccessToken(res.accessToken);
+          this.authService.setAccessToken(res.data!.accessToken);
 
           this.message.success('Sign in successfully!', {
             nzDuration: 3000,
@@ -104,19 +104,22 @@ export class SigninComponent implements OnInit {
 
           this.authService.getProfile(this.email.value).subscribe({
             next: (res) => {
-              console.log(res);
+              this.userStore.storeUser(res.data);
+
+              this.router.navigate(['/today']);
             },
             error: (err) => {
               console.log(err);
             }
           });
-
-          // this.router.navigate(['/']);
-
         }
       });
     } else {
       this.signInForm.markAllAsTouched();
     }
+  }
+
+  forgotPassword(): void {
+    
   }
 }
