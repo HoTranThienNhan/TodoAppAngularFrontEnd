@@ -4,7 +4,7 @@
             Sign Up
         </div>
         <div class="inputs">
-            <form>
+            <form [formGroup]="signUpForm" (submit)="signUp()">
                 <app-input class="first-name" type="text" label="First Name" placeholder="First name"
                     required="required" [control]="firstName"></app-input>
                 <app-input class="last-name" type="text" label="Last Name" placeholder="Last name" required="optional"
@@ -18,7 +18,7 @@
                 <app-input class="password" type="password" label="Password" placeholder="Password" required="required"
                     [control]="password"></app-input>
                 <app-spinner [isLoading]="isLoading">
-                    <app-button (click)="signUp()" buttonAction="button">SIGN UP</app-button>
+                    <app-button buttonAction="submit">SIGN UP</app-button>
                 </app-spinner>
             </form>
         </div>

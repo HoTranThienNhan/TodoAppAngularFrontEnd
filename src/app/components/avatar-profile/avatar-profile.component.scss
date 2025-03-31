@@ -4,17 +4,17 @@
     .avatar-img {
         border-radius: 50%;
         object-fit: cover;
-        margin-right: 15px;
+        margin-right: 12px;
     }
 
     .fullname {
-        font-size: 24px;
+        font-size: 18px;
         font-weight: bold;
         line-height: 25px;
     }
 
     .username {
-        font-size: 14px;
+        font-size: 11px;
         color: variables.$surface-200;
     }
 }

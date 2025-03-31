@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { MenuTaskItemsComponent } from "../menu-task-items/menu-task-items.component";
 
 @Component({
@@ -31,9 +31,15 @@ export class MenuTaskComponent {
       "value": false
     },
   ];  
+  navigateEventEmitter = output<string>();
 
   // methods
   navigateToTaskPage(item: string): void {
     this.selectedTaskItems = this.selectedTaskItems.map(taskItem => taskItem.name === item ? { ...taskItem, value: true } : { ...taskItem, value: false });
+    this.navigateEventEmitter.emit(item);
+  }
+
+  setAllAsFalse(): void {
+    this.selectedTaskItems = this.selectedTaskItems.map(taskItem => ({ ...taskItem, value: false }));
   }
 }

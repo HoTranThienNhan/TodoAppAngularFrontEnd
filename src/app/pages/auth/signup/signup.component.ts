@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { InputComponent } from "../../../components/inputs/input/input.component";
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from "../../../components/buttons/button/button.component";
 import { Router, RouterLink } from '@angular/router';
 import { ValidatorsService } from '../../../services/validators/validators.service';
@@ -12,7 +12,7 @@ import { SpinnerComponent } from "../../../components/loadings/spinner/spinner.c
 
 @Component({
   selector: 'app-signup',
-  imports: [InputComponent, ButtonComponent, RouterLink, SpinnerComponent],
+  imports: [InputComponent, ButtonComponent, RouterLink, SpinnerComponent, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -108,8 +108,6 @@ export class SignupComponent implements OnInit {
         })
       ).subscribe({
         next: (res) => {
-          console.log(res);
-
           this.message.success('Please verify your email!', {
             nzDuration: 3000,
             nzPauseOnHover: true,

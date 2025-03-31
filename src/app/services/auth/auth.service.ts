@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegisterDto } from '../../models/auth/register-dto/register-dto.model';
 import { SigninDto } from '../../models/auth/signin-dto/signin-dto.model';
-import { SigninResDto } from '../../models/auth/signin-res-dto/signin-res-dto.model';
 import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
 import { RegisterResDto } from '../../models/auth/register-res-dto/register-res-dto.model';
 import { RefreshTokenDto } from '../../models/auth/refresh-token-dto/refresh-token-dto.model';

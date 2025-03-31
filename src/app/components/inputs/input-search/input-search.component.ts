@@ -11,7 +11,7 @@ import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 export class InputSearchComponent {
   // props
   placeholder = input<string>("Placeholder");
-  iconWidth = input<number>(24);
+  iconWidth = input<number>(18);
   control = input<FormControl>(new FormControl());
   searchSelect = output<string>();
   cities: { id: number, name: string, disabled?: boolean }[] = [

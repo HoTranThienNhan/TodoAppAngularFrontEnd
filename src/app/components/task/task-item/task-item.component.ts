@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, input, model, output, ViewChild }
 import { TagComponent } from "../../tag/tag.component";
 import { DragScrollDirective } from '../../../directives/drag-scroll/drag-scroll.directive';
 import { FormsModule } from '@angular/forms';
+import { Tag } from '../../../models/tag/tag/tag.model';
 
 @Component({
   selector: 'app-task-item',
@@ -13,7 +14,7 @@ export class TaskItemComponent implements AfterViewInit {
   // props
   content = input<string>("Task content");
   subtaskQuantity = input<number>(0);
-  tags = input<Array<string>>([]);
+  tags = input<Array<Tag>>([]);
   isDone = input<boolean>(false);
   isImportant = model<boolean>(false);
   isSelectedItem = input<boolean>(false);

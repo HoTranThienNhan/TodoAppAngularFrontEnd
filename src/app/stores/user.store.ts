@@ -1,24 +1,26 @@
 import { effect, inject } from '@angular/core';
-import { getState, patchState, signalStore, watchState, withHooks, withMethods, withState } from '@ngrx/signals';
+import { getState, patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
 import { AuthService } from '../services/auth/auth.service';
 
-type UserState = {
+type User = {
     id: string,
     firstName: string,
     lastName: string,
     username: string,
     email: string,
     phone: string,
+    avatar: string;
     isActive: boolean
 };
 
-const initialState: UserState = {
+const initialState: User = {
     id: "",
     firstName: "",
     lastName: "",
     username: "",
     email: "",
     phone: "",
+    avatar: "../assets/images/user/default-avatar.jpg",
     isActive: true
 };
 
@@ -27,8 +29,8 @@ export const UserStore = signalStore(
     withState(initialState),
     withMethods((store, authService = inject(AuthService)) => ({
         // getUser from sessionStorage
-        getUser(): UserState {
-            const user: UserState = JSON.parse(sessionStorage.getItem("user")!);
+        getUser(): User {
+            const user: User = JSON.parse(sessionStorage.getItem("user")!);
             if (user) {
                 authService.getProfile(user.email).subscribe({
                     next: (res) => {

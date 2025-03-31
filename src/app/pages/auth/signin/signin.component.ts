@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { InputComponent } from '../../../components/inputs/input/input.component';
 import { ButtonComponent } from '../../../components/buttons/button/button.component';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputCheckboxComponent } from "../../../components/inputs/input-checkbox/input-checkbox.component";
 import { SpinnerComponent } from "../../../components/loadings/spinner/spinner.component";
@@ -9,7 +9,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { SigninDto } from '../../../models/auth/signin-dto/signin-dto.model';
 import { catchError, EMPTY, finalize } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { UserStore } from '../../../store/user.store';
+import { UserStore } from '../../../stores/user.store';
 
 @Component({
   selector: 'app-signin',
@@ -23,12 +23,14 @@ export class SigninComponent implements OnInit {
   isLoading: boolean = false;
   userSignIn!: SigninDto;
   errorMessage: string = "";
+  returnUrl: string = "/today";
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
   message: NzMessageService = inject(NzMessageService);
   router: Router = inject(Router);
+  route: ActivatedRoute = inject(ActivatedRoute);
   userStore = inject(UserStore);
 
   // getters, setters
@@ -56,6 +58,9 @@ export class SigninComponent implements OnInit {
     this.signInForm.valueChanges.subscribe(() => {
       this.errorMessage = "";
     });
+
+    // auth guard redirect url after signing in
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || this.returnUrl;
   }
 
   // methods
@@ -106,7 +111,7 @@ export class SigninComponent implements OnInit {
             next: (res) => {
               this.userStore.storeUser(res.data);
 
-              this.router.navigate(['/today']);
+              this.router.navigate([this.returnUrl]);
             },
             error: (err) => {
               console.log(err);

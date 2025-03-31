@@ -1,10 +1,10 @@
 @use "../../../../../public/assets/sass/abstracts/variables";
 
 .menu-task-items {
-    font-size: 20px;
+    font-size: 15px;
     width: 100%;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 7px 10px;
     border-radius: 7px;
 
     &:hover {
@@ -17,8 +17,8 @@
 
     .number-badge {
         font-weight: 600;
-        width: 50px;
-        height: 30px;
+        width: 36px;
+        height: 22px;
         border-radius: 7px;
         display: flex;
         justify-content: center;

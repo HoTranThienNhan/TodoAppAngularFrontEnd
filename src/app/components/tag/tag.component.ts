@@ -9,10 +9,11 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 })
 export class TagComponent implements OnInit {
   // props
+  tagId = input<string>();
   tagTitle = input<string>("Tag 1");
   color = input<'#F9DBB5' | '#E9E8E8'>('#F9DBB5');
   hoverColor = input<string>(this.color());
-  fontSize = input<number>(16);
+  fontSize = input<number>(12);
   hoverColorString: string = "";
 
   // hooks

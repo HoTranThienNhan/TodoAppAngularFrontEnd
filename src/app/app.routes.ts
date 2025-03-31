@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth/auth.guard';
 
 export const routes: Routes = [
     {
@@ -19,6 +20,10 @@ export const routes: Routes = [
     },
     {
         path: 'today',
-        loadComponent: () => import('./pages/todo-task/today/today.component').then(c => c.TodayComponent)
+        loadComponent: () => import('./pages/todo-task/today/today.component').then(c => c.TodayComponent),
+        canActivate: [authGuard],
+        data: {
+            fallbackRoute: '/signin'
+        }
     },
 ];

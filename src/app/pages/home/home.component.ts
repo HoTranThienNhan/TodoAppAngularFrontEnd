@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/buttons/button/button.component';
-import { UserStore } from '../../store/user.store';
+import { UserStore } from '../../stores/user.store';
 import { AuthService } from '../../services/auth/auth.service';
-import { User } from '../../models/user/user.model';
 
 @Component({
   selector: 'app-home',

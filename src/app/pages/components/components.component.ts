@@ -11,6 +11,7 @@ import { DatePickerComponent } from '../../components/date-picker/date-picker.co
 import { SubtaskComponent } from '../../components/subtask/subtask.component';
 import { AvatarProfileComponent } from '../../components/avatar-profile/avatar-profile.component';
 import { AccountComponent } from '../../components/modals/account/account.component';
+import { User } from '../../models/user/user.model';
 
 @Component({
   selector: 'app-components',
@@ -93,14 +94,7 @@ export class ComponentsComponent {
     this.accountComp.showModal();
   }
 
-  updateAccount(account: {
-    id: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    avatar: string
-  }): void {
+  updateAccount(account: User): void {
     console.log(account);
   }
 }

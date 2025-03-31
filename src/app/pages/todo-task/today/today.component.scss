@@ -1,0 +1,39 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+.todo-task-today {
+    padding: 25px 30px;
+    height: 100vh;
+    
+    .main-content {
+        width: 100%;
+        margin: 10px 82px 35px 82px;
+
+        .title {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .introduction {
+            font-size: 18px;
+            margin-left: 15px;
+        }
+
+        .all-todo-tasks {
+            margin: 40px 15px 0px 15px;
+
+            .add-new-task {
+                padding-top: 12px;
+                border-top: 2px solid variables.$grey-100;
+                margin-bottom: 10px;
+
+                button {
+                    margin-left: 12px;
+                    font-size: 18px;
+                    color: variables.$surface-200;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

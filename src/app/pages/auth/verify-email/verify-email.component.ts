@@ -148,8 +148,6 @@ export class VerifyEmailComponent {
       })
     ).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.message.success('Confirm your email successfully! Your account is registered!', {
           nzDuration: 3000,
           nzPauseOnHover: true,

@@ -3,19 +3,19 @@
 .subtask {
     .title {
         font-weight: bold;
-        font-size: 24px;
+        font-size: 18px;
         color: variables.$surface-400;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .add-new-subtask {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
 
         input {
-            margin-left: 10px;
+            margin-left: 8px;
             
             &::placeholder {
-                font-size: 16px;
+                font-size: 14px;
                 color: variables.$surface-200;
             }
 
@@ -28,18 +28,18 @@
 
     .subtasks-list {
         .subtask-item {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
 
             .checkbox {
                 cursor: pointer;
-                width: 16px;
-                height: 16px;
+                width: 12px;
+                height: 12px;
                 margin-right: 10px;
                 accent-color: variables.$success-300;
             }
 
             span {
-                font-size: 16px;
+                font-size: 14px;
                 color: variables.$surface-400;
             }
         }

@@ -21,6 +21,7 @@
     "@ng-select/ng-select": "^14.2.4",
     "@ngrx/signals": "^19.0.1",
     "@tailwindcss/postcss": "^4.0.9",
+    "dayjs": "^1.11.13",
     "google-libphonenumber": "^3.2.40",
     "ng-zorro-antd": "^19.1.0",
     "ngx-countdown": "^19.0.0",

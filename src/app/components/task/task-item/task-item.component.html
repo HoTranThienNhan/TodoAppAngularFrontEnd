@@ -22,7 +22,7 @@
                 }
                 <div class="tags h-[22px] flex flex-row" appDragScroll>
                     @for (tag of tags(); track tag) {
-                    <app-tag>{{ tag }}</app-tag>
+                    <app-tag [tagId]="tag.id">{{ tag.name }}</app-tag>
                     }
                 </div>
             </div>

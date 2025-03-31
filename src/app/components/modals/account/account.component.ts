@@ -4,6 +4,7 @@ import { InputComponent } from "../../inputs/input/input.component";
 import { ButtonComponent } from "../../buttons/button/button.component";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FullNamePipe } from '../../../pipes/full-name.pipe';
+import { User } from '../../../models/user/user.model';
 
 @Component({
   selector: 'app-account',
@@ -15,32 +16,17 @@ export class AccountComponent implements OnInit {
   // props
   isVisible = false;
   accountForm!: FormGroup;
-  account = input<{
-    id: string,
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    avatar: string
-  }>({
-    id: 'userid',
-    username: 'username',
-    firstName: 'First Name',
-    lastName: '',
-    email: 'email@gmail.com',
-    phone: '0123456789',
-    avatar: '../assets/images/avatar.jpg'
-  });
-  changeAccountEventEmitter = output<{
-    id: string,
-    username: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    avatar: string
-  }>();
+  account = input<User>(new User(
+    'userid',
+    'First Name',
+    "",
+    'username',
+    'email@gmail.com',
+    '0123456789',
+    true,
+    '../assets/images/avatar.jpg'
+  ));
+  changeAccountEventEmitter = output<User>();
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
