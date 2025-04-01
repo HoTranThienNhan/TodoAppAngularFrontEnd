@@ -4,7 +4,7 @@ import { UserStore } from '../../../stores/user.store';
 import { User } from '../../../models/user/user.model';
 import { SidebarComponent } from "../../../components/sidebar/sidebar/sidebar.component";
 import { TaskDetailsSidebarComponent } from "../../../components/sidebar/task-details-sidebar/task-details-sidebar.component";
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
 import { ConvertDateStringPipe } from '../../../pipes/convert-date-string.pipe';
 

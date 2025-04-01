@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpInterceptorFn } from '@angular/common
 import { AuthService } from '../auth/auth.service';
 import { inject } from '@angular/core';
 import * as globalVars from '../../../global';
-import { catchError, EMPTY, finalize, Observable } from 'rxjs';
+import { catchError, EMPTY, finalize, Observable, throwError } from 'rxjs';
 import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
 
 export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEvent<unknown>> => {
@@ -51,7 +51,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
         });
       }
 
-      return EMPTY;
+      return throwError(() => err);
     })
   );
 };

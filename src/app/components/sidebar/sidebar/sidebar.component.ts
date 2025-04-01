@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, ViewChild } from '@angular/core';
 import { AvatarProfileComponent } from "../../avatar-profile/avatar-profile.component";
 import { AccountComponent } from '../../modals/account/account.component';
 import { User } from '../../../models/user/user.model';
@@ -23,7 +23,7 @@ import { SidebarStateStore } from '../../../stores/sidebar.store';
 })
 export class SidebarComponent {
   // props
-  user!: User;
+  user = input<User>();
   searchForm!: FormGroup;
   isSelectedSettings: boolean = false;
   tags: Array<Tag> = [];
@@ -43,15 +43,14 @@ export class SidebarComponent {
 
   // hooks
   ngOnInit(): void {
-    this.user = this.userStore.getUser();
     this.isCollapsed = this.sidebarStateStore.getSidebarState();
 
     this.searchForm = this.fb.group({
       search: ["", []]
     });
 
-    if (this.user.id !== "") {
-      this.tagService.getAllByUserId(this.user.id).subscribe({
+    if (this.user()!.id !== "") {
+      this.tagService.getAllByUserId(this.user()!.id).subscribe({
         next: (res) => {
           res.data?.tags.map((tag: Tag) => {
             this.tags.push(tag);
