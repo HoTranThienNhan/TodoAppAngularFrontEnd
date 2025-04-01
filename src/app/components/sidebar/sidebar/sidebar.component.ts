@@ -129,4 +129,15 @@ export class SidebarComponent {
       this.sidebarStateStore.storeSidebarState(false);
     }
   }
+
+  refetchAllTags(): void {
+    this.tags.length = 0;   // clear tags array
+    this.tagService.getAllByUserId(this.user()!.id).subscribe({
+      next: (res) => {
+        res.data?.tags.map((tag: Tag) => {
+          this.tags.push(tag);
+        });
+      }
+    });
+  }
 }

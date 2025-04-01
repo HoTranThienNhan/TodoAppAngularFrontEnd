@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { TagComponent } from "../../tag/tag.component";
 import { ButtonComponent } from "../../buttons/button/button.component";
@@ -27,6 +27,7 @@ export class AddTagComponent {
   addedTag: string = "";
   user = input<User>();
   isLoading: boolean = false;
+  notifyRefetchTagsEventEmitter = output<void>();
 
   // injection
   tagService: TagService = inject(TagService);
@@ -55,13 +56,12 @@ export class AddTagComponent {
         }),
       ).subscribe({
         next: (res) => {
-          console.log(res);
-
           this.message.success('Add tag successfully!', {
             nzDuration: 3000,
             nzPauseOnHover: true,
           });
 
+          this.notifyRefetchTagsEventEmitter.emit();
           this.addedTag = "";
           this.isVisible = false;
         },
@@ -78,6 +78,7 @@ export class AddTagComponent {
   handleCancel(): void {
     this.isVisible = false;
     this.selectedTags = [];
+    this.addedTag = "";
     console.log("Cancel");
     console.log(this.addedTag);
   }

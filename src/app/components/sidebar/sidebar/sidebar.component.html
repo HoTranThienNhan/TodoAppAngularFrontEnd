@@ -21,7 +21,7 @@
                 }
             </div>
         </div>
-        <div class="menu-title">Menu</div>
+        <div class="menu-title" [class.menu-title-collapsed]="isCollapsed">Menu</div>
         <div class="search-section">
             <form [formGroup]="searchForm">
                 <app-input-search placeholder="Search" [control]="search" (searchSelect)="onButtonSearchClick($event)"
@@ -40,7 +40,7 @@
                 @for (tag of tags; track tag.id) {
                 <app-tag [tagId]="tag.id">{{ tag.name }}</app-tag>
                 }
-                <app-add-tag addTagModalTitle="Add Tag" [user]="user()!"></app-add-tag>
+                <app-add-tag addTagModalTitle="Add Tag" [user]="user()!" (notifyRefetchTagsEventEmitter)="refetchAllTags()"></app-add-tag>
                 } @else {
                 <app-tag [isCollapsed]="isCollapsed">{{ '...' }}</app-tag>
                 }

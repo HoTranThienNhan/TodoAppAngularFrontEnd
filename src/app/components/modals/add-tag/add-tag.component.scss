@@ -13,7 +13,6 @@ $repeat: 10;
 ::ng-deep .ant-modal-content {
     border-radius: 10px !important;
     padding: 30px 35px 30px 40px;
-    min-width: 700px;
 
     .ant-modal-title {
         font-size: 34px !important;
@@ -40,6 +39,7 @@ $repeat: 10;
 
 ::ng-deep .ant-modal-footer {
     border: 0;
+    padding: 0;
 }
 
 .add-tag-label {

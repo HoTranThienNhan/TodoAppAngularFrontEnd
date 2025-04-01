@@ -1,5 +1,5 @@
 <app-tag color="#E9E8E8" hoverColor="#848484" class="cursor-pointer" (click)="showModal()">+ {{ addTagModalTitle() }}</app-tag>
-<nz-modal class="add-tag-modal" nzMaskClosable="false" [nzTitle]="modalTitle" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(addTagModalTitle())">
+<nz-modal class="add-tag-modal" nzMaskClosable="false" [nzWidth]="700" [nzTitle]="modalTitle" [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(addTagModalTitle())">
   <ng-template #modalTitle>{{ addTagModalTitle() }}</ng-template>
   <ng-container *nzModalContent>
       <div class="flex">

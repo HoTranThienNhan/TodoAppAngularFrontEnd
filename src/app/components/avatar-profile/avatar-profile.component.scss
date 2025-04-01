@@ -5,6 +5,15 @@
         border-radius: 50%;
         object-fit: cover;
         margin-right: 12px;
+        width: 32px;
+        height: 32px;
+        transition: all .6s;
+
+        &.avatar-img-collapsed {
+            width: 22px;
+            height: 22px;
+            transition: all .6s;
+        }
     }
 
     .fullname {

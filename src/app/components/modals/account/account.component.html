@@ -1,4 +1,4 @@
-<nz-modal nzWrapClassName="account-modal" nzMaskClosable="false" [(nzVisible)]="isVisible" [nzClosable]="false" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal nzWrapClassName="account-modal" nzMaskClosable="false" [nzStyle]="{ top: '30px' }" [nzWidth]="700" [(nzVisible)]="isVisible" [nzClosable]="false" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
         <div class="relative heading">
             <div></div>
@@ -38,7 +38,7 @@
         </div>
     </ng-container>
     <div class="flex justify-end" *nzModalFooter>
-        <app-button class="me-[20px]" buttonType="Cancel" nzType="default" (click)="handleCancel()">Cancel</app-button>
-        <app-button buttonType="Ok" nzType="primary" (click)="handleOk()">Save Changes</app-button>
+        <app-button class="me-[20px] mb-[27px]" buttonType="Cancel" nzType="default" (click)="handleCancel()">Cancel</app-button>
+        <app-button class="me-[38px] mb-[27px]" buttonType="Ok" nzType="primary" (click)="handleOk()">Save Changes</app-button>
       </div>
 </nz-modal>
