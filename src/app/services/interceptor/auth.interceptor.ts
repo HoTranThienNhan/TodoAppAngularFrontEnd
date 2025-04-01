@@ -4,11 +4,14 @@ import { inject } from '@angular/core';
 import * as globalVars from '../../../global';
 import { catchError, EMPTY, finalize, Observable, throwError } from 'rxjs';
 import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
+import { UserStore } from '../../stores/user.store';
+import { User } from '../../models/user/user.model';
 
 export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEvent<unknown>> => {
   const authService: AuthService = inject(AuthService);
   let accessToken = authService.getAccessToken();
   const apiUrl: string = globalVars.domain + '/auth';
+  const userStore = inject(UserStore);
 
   const excludedUrls: string[] = [
     apiUrl + '/register',
@@ -31,7 +34,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
   return next(authReq).pipe(
     catchError((err: HttpErrorResponse) => {
       if (err.status == 401) {
-        authService.refreshToken({ userId: "2aef648b-2e0a-43b9-a3a5-3ce59d5da236" }).subscribe({
+        const user: User = userStore.getUser();
+        authService.refreshToken({ userId: user.id }).subscribe({
           next: (res) => {
             // set new access token
             authService.setAccessToken(res.data!.accessToken);
