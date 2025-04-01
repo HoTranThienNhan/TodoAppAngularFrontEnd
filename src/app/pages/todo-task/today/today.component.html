@@ -8,7 +8,7 @@
         </div>
         <div class="introduction">
             Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have 4 tasks today ({{
-            currentDateString }}).
+            currentDate | convertDateString : 'DD/MM/YYYY' }}).
         </div>
         <div class="all-todo-tasks">
             <div class="add-new-task flex flex-row items-center" (click)="openAddNewTask()">

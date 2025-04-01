@@ -4,19 +4,20 @@ import { UserStore } from '../../../stores/user.store';
 import { User } from '../../../models/user/user.model';
 import { SidebarComponent } from "../../../components/sidebar/sidebar/sidebar.component";
 import { TaskDetailsSidebarComponent } from "../../../components/sidebar/task-details-sidebar/task-details-sidebar.component";
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
+import { ConvertDateStringPipe } from '../../../pipes/convert-date-string.pipe';
 
 @Component({
   selector: 'app-today',
-  imports: [SidebarComponent, TaskDetailsSidebarComponent, TaskItemComponent],
+  imports: [SidebarComponent, TaskDetailsSidebarComponent, TaskItemComponent, ConvertDateStringPipe],
   templateUrl: './today.component.html',
   styleUrl: './today.component.scss'
 })
 export class TodayComponent {
   // props
   user!: User;
-  currentDateString!: string; 
+  currentDate!: Dayjs; 
 
   // injection
   router: Router = inject(Router);
@@ -25,7 +26,6 @@ export class TodayComponent {
   // hooks
   ngOnInit(): void {
     this.user = this.userStore.getUser();
-    this.currentDateString = dayjs().format("DD-MM-YYYY");
   }
 
   // methods

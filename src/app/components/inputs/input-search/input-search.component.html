@@ -1,5 +1,5 @@
 <div class="flex flex-row items-center">
-    <button (click)="onClick()">
+    <button (click)="onClick()" [class.button-search-collapsed]="isCollapsed()">
         <svg xmlns="http://www.w3.org/2000/svg" [attr.width]="iconWidth()" [attr.height]="iconWidth()"
             viewBox="0 0 24 24" fill="none">
             <path
@@ -8,6 +8,6 @@
         </svg>
     </button>
     <ng-select class="search-select" [items]="cities" [searchFn]="customSearchFn" bindLabel="name" [placeholder]="placeholder()"
-        [(ngModel)]="selectedCity">
+        [(ngModel)]="selectedCity" [class.search-select-collapsed]="isCollapsed()">
     </ng-select>
 </div>

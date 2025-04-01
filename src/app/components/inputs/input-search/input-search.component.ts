@@ -22,6 +22,7 @@ export class InputSearchComponent {
     { id: 5, name: 'TX, Dallas' }
   ];
   selectedCity!: { id: number, name: string, disabled?: boolean };
+  isCollapsed = input<boolean>(false);
 
   // methods
   onClick(): void {

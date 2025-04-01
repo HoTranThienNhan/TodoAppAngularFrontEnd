@@ -14,4 +14,5 @@ export class AvatarProfileComponent {
   username = input<string>("username");
   userId = input<string>("userid");
   avatarSrc = input<string>("");
+  isCollapsed = input<boolean>(false);
 }

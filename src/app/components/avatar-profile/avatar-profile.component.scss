@@ -17,4 +17,12 @@
         font-size: 11px;
         color: variables.$surface-200;
     }
+
+    &.avatar-profile-collapse {
+        height: 42px;
+        
+        .fullname, .username {
+            display: none;
+        }
+    }
 }

@@ -1,9 +1,10 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MenuTaskItemsComponent } from "../menu-task-items/menu-task-items.component";
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-menu-task',
-  imports: [MenuTaskItemsComponent],
+  imports: [MenuTaskItemsComponent, NzToolTipModule],
   templateUrl: './menu-task.component.html',
   styleUrl: './menu-task.component.scss'
 })
@@ -31,6 +32,7 @@ export class MenuTaskComponent {
       "value": false
     },
   ];  
+  isCollapsed = input<boolean>(false);
   navigateEventEmitter = output<string>();
 
   // methods

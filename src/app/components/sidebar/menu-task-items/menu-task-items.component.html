@@ -1,11 +1,12 @@
-<div class="flex flex-row items-center menu-task-items cursor-pointer" [class.selected]="isSelected()" (click)="onClick()">
+<div class="flex flex-row items-center menu-task-items cursor-pointer" [class.menu-task-items-collapsed]="isCollapsed()"
+    [class.selected]="isSelected()" (click)="onClick()">
     <div class="flex flex-row items-center">
         <ng-content select="svg"></ng-content>
         <span class="ms-[7px] title" [class.font-semibold]="isSelected()">{{ title() }}</span>
     </div>
     @if (quantity() && quantity() > 0) {
-        <div [class]="{'number-badge': true, 'selected': isSelected()}">
-            <span>{{ quantity() }}</span>
-        </div>
+    <div [class]="{'number-badge': true, 'selected': isSelected()}">
+        <span>{{ quantity() }}</span>
+    </div>
     }
 </div>

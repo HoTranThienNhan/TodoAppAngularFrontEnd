@@ -6,6 +6,12 @@
     background-color: variables.$grey-50;
     padding: 20px 15px;
     border-radius: 5px;
+    transition: width .6s;
+
+    &.sidebar-collapse {
+        width: 93px;
+        transition: width .6s;
+    }
 
     .menu-title {
         font-size: 23px;

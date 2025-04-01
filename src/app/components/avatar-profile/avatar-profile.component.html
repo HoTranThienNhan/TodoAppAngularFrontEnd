@@ -1,4 +1,4 @@
-<div class="avatar-profile flex flex-row items-center">
+<div class="avatar-profile flex flex-row items-center" [class.avatar-profile-collapse]="isCollapsed()">
         <img [src]="avatarSrc()" width="32" height="32" class="avatar-img" draggable="false" />
     <div class="username-profile flex flex-col">
         <span class="fullname">

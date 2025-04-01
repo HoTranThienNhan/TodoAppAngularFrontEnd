@@ -19,12 +19,20 @@ button {
             }
         }
     }
+
+    &.button-search-collapsed {
+        height: 36px;
+    }
 }
 
 .search-select {
     width: 100%;
     margin-left: 10px;
     font-size: 15px;
+
+    &.search-select-collapsed {
+        display: none;
+    }
 
     ::ng-deep.ng-select-container {
         box-shadow: none !important;

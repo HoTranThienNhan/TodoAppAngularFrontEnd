@@ -15,4 +15,8 @@
     &.tag--sm {
         font-size: 14px;
     }
+
+    &.tag-collapsed {
+        min-width: 40px;
+    }
 }

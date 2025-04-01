@@ -15,6 +15,7 @@ export class TagComponent implements OnInit {
   hoverColor = input<string>(this.color());
   fontSize = input<number>(12);
   hoverColorString: string = "";
+  isCollapsed = input<boolean>(false);
 
   // hooks
   ngOnInit(): void {

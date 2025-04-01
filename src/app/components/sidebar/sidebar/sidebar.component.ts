@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { AvatarProfileComponent } from "../../avatar-profile/avatar-profile.component";
 import { AccountComponent } from '../../modals/account/account.component';
 import { User } from '../../../models/user/user.model';
@@ -12,10 +12,12 @@ import { MenuTaskItemsComponent } from "../menu-task-items/menu-task-items.compo
 import { Router } from '@angular/router';
 import { TagService } from '../../../services/tag/tag.service';
 import { Tag } from '../../../models/tag/tag/tag.model';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { SidebarStateStore } from '../../../stores/sidebar.store';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [AvatarProfileComponent, AccountComponent, ReactiveFormsModule, InputSearchComponent, MenuTaskComponent, TagComponent, AddTagComponent, MenuTaskItemsComponent],
+  imports: [AvatarProfileComponent, AccountComponent, ReactiveFormsModule, InputSearchComponent, MenuTaskComponent, TagComponent, AddTagComponent, MenuTaskItemsComponent, NzToolTipModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -25,6 +27,7 @@ export class SidebarComponent {
   searchForm!: FormGroup;
   isSelectedSettings: boolean = false;
   tags: Array<Tag> = [];
+  isCollapsed!: boolean;
 
   // getters, setters
   get search(): FormControl {
@@ -33,6 +36,7 @@ export class SidebarComponent {
 
   // injection
   userStore = inject(UserStore);
+  sidebarStateStore = inject(SidebarStateStore);
   fb: FormBuilder = inject(FormBuilder);
   router: Router = inject(Router);
   tagService: TagService = inject(TagService);
@@ -40,6 +44,7 @@ export class SidebarComponent {
   // hooks
   ngOnInit(): void {
     this.user = this.userStore.getUser();
+    this.isCollapsed = this.sidebarStateStore.getSidebarState();
 
     this.searchForm = this.fb.group({
       search: ["", []]
@@ -48,18 +53,25 @@ export class SidebarComponent {
     if (this.user.id !== "") {
       this.tagService.getAllByUserId(this.user.id).subscribe({
         next: (res) => {
-          console.log(res);
           res.data?.tags.map((tag: Tag) => {
             this.tags.push(tag);
           });
-          console.log("tags", this.tags);
         }
       });
     }
   }
-
+  
   @ViewChild(AccountComponent) accountComp!: AccountComponent;
   @ViewChild(MenuTaskComponent) menuTaskComp!: MenuTaskComponent;
+  @ViewChild("sidebar") sidebarEl!: ElementRef;
+
+  ngAfterViewInit(): void {
+    if (this.isCollapsed) {
+      this.sidebarEl.nativeElement.classList.add('sidebar-collapse');
+    } else {
+      this.sidebarEl.nativeElement.classList.remove('sidebar-collapse');
+    }
+  }
 
   // methods
   openAccountModal(): void {
@@ -107,7 +119,15 @@ export class SidebarComponent {
     this.router.navigate(['/']);
   }
 
-  closeLeftSidebar(): void {
-
+  closeLeftSidebar(isCollapsed: boolean): void {
+    if (!isCollapsed) {
+      this.sidebarEl.nativeElement.classList.add('sidebar-collapse');
+      this.isCollapsed = true;
+      this.sidebarStateStore.storeSidebarState(true);
+    } else {
+      this.sidebarEl.nativeElement.classList.remove('sidebar-collapse');
+      this.isCollapsed = false;
+      this.sidebarStateStore.storeSidebarState(false);
+    }
   }
 }
