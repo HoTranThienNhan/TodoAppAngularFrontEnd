@@ -41,6 +41,6 @@
     </div>
     <div class="right-sidebar">
         <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
-            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)" [todoTask]="selectedTodoTask"></app-task-details-sidebar>
+            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)" [todoTask]="selectedTodoTask" [user]="user"></app-task-details-sidebar>
     </div>
 </section>

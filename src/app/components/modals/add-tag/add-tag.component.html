@@ -10,9 +10,9 @@
           </div>
         } @else if (addTagModalTitle() === 'Select Tags') {
           <div class="select-tag-input">
-            <nz-select class="w-full rounded-[8px]!" nzMode="tags" nzPlaceHolder="Value" [(ngModel)]="selectedTags">
+            <nz-select class="w-full rounded-[8px]!" nzMode="tags" nzPlaceHolder="Value" [ngModel]="selectedTagsString" (ngModelChange)="selectTags($event)">
               @for (tagOpt of tags; track tagOpt) {
-                <nz-option [nzLabel]="tagOpt" [nzValue]="tagOpt"></nz-option>
+                <nz-option [nzLabel]="tagOpt.name" [nzValue]="tagOpt.name"></nz-option>
               }
             </nz-select>
           </div>

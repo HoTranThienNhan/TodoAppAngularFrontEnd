@@ -5,8 +5,10 @@ import { AddTagComponent } from "../../modals/add-tag/add-tag.component";
 import { SubtaskComponent } from "../../subtask/subtask.component";
 import { ButtonComponent } from "../../buttons/button/button.component";
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
+import { User } from '../../../models/user/user.model';
+import { Tag } from '../../../models/tag/tag/tag.model';
 
 @Component({
   selector: 'app-task-details-sidebar',
@@ -20,7 +22,9 @@ export class TaskDetailsSidebarComponent {
   isCollapsed = model<boolean>(true);
   notifyCollapsedEventEmitter = output<boolean>();
   todoTask = input<TodoTask>();
+  user = input<User>();
   todoTaskDetailsForm!: FormGroup;
+  currentSelectedTags: Array<Tag> = [];
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
@@ -37,6 +41,7 @@ export class TaskDetailsSidebarComponent {
       isDone: [false, []],
       isDeleted: [false, []],
       userId: ["", []],
+      tags: [[], []],
     });
   }
 
@@ -51,9 +56,17 @@ export class TaskDetailsSidebarComponent {
         isDone: [this.todoTask()!.isDone, []],
         isDeleted: [this.todoTask()!.isDeleted, []],
         userId: [this.todoTask()!.userId, []],
+        tags: [this.todoTask()?.tags, []]
       });
+      
+      this.currentSelectedTags = this.todoTask()?.tags!;
     }
   });
+
+  // getters, setters
+  get tags(): FormControl {
+    return this.todoTaskDetailsForm.get('tags') as FormControl;
+  }
 
   // methods
   checkAsImportant(): void {
@@ -84,23 +97,17 @@ export class TaskDetailsSidebarComponent {
     console.log("id", id);
   }
 
+  selectTags(tags: Array<Tag>): void {
+    this.todoTaskDetailsForm.get('tags')!.patchValue(tags);
+    this.currentSelectedTags = tags;
+  }
+
   closeSidebar(): void {
     this.isCollapsed.set(true);
     this.notifyCollapsedEventEmitter.emit(this.isCollapsed())
   }
 
   saveChanges(): void {
-    // this.todoTaskDetailsForm = this.fb.group({
-    //   id: [this.todoTask()!.id, []],
-    //   name: [this.todoTask()!.name ?? "", []],
-    //   description: [this.todoTask()!.description, []],
-    //   date: [this.todoTask()!.date, []],
-    //   isImportant: [this.todoTask()!.isImportant, []],
-    //   isDone: [this.todoTask()!.isDone, []],
-    //   isDeleted: [this.todoTask()!.isDeleted, []],
-    //   userId: [this.todoTask()!.userId, []],
-    // });
-
     console.log(this.todoTaskDetailsForm.value);
   }
 

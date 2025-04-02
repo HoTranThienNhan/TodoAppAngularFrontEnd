@@ -31,8 +31,10 @@
             </div>
             <div class="tags-section flex flex-row flex-wrap gap-y-[10px] items-center">
                 <span class="tags-title">Tags:</span>
-                <app-tag>Tag 1</app-tag>
-                <app-add-tag addTagModalTitle="Select Tags"></app-add-tag>
+                @for (tag of tags.value; track tag) {
+                    <app-tag>{{ tag.name }}</app-tag>
+                }
+                <app-add-tag addTagModalTitle="Select Tags" [user]="user()" [selectedTags]="currentSelectedTags" (selectTagsEventEmitter)="selectTags($event)"></app-add-tag>
             </div>
             <div class="subtasks-section">
                 <app-subtask [subtasksList]="[
