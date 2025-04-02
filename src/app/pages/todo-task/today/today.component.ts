@@ -10,6 +10,7 @@ import { ConvertDateStringPipe } from '../../../pipes/convert-date-string.pipe';
 import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-today',
