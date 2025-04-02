@@ -6,6 +6,42 @@
     background-color: variables.$grey-50;
     padding: 25px 21px 18px 21px;
     border-radius: 5px;
+    transition: .6s all;
+
+    &.sidebar-collapsed {
+        width: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        transition: .6s all;
+
+        .title-section {
+            display: none;
+        }
+
+        .name-section {
+            display: none;
+        }
+
+        .description-section {
+            display: none;
+        }
+
+        .date-section {
+            display: none;
+        }
+
+        .tags-section {
+            display: none;
+        }
+
+        .subtasks-section {
+            display: none;
+        }
+
+        .bottom-sidebar {
+            display: none;
+        }
+    }
 
     .title-section {
         .sidebar-title {
@@ -35,8 +71,11 @@
         .title-name {
             font-size: 14px;
             font-weight: 600;
+            width: 100%;
 
             input {
+                width: 100%;
+
                 &:focus {
                     border: 0;
                     outline: none;

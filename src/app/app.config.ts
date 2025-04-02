@@ -6,6 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { authInterceptor } from './services/interceptor/auth.interceptor';
+import { I18nPluralPipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     ),
     AuthService,
     provideAnimations(),
+    I18nPluralPipe
   ]
 };

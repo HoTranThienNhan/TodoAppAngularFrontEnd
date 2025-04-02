@@ -1,11 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { SessionStorageCheckHelper } from '../../helpers/session-storage-check/session-storage-check-helper.helper';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const fallbackRoute: string = route.data['fallbackRoute'] ?? '/signin';
 
-  if (JSON.parse(sessionStorage.getItem("user")!).id !== "") {
+  if (SessionStorageCheckHelper.isItemFound("user")) {
     return true;
   }
 

@@ -7,29 +7,40 @@
             Today
         </div>
         <div class="introduction">
-            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have 4 tasks today ({{
+            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have {{ todoTasks.length |
+            i18nPlural: todoTasksQuantityTextMapping }} today ({{
             currentDate | convertDateString : 'DD/MM/YYYY' }}).
         </div>
         <div class="all-todo-tasks">
             <div class="add-new-task flex flex-row items-center" (click)="openAddNewTask()">
-                <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22"
-                    height="22" viewBox="0 0 20 20" fill="none">
+                <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                    viewBox="0 0 20 20" fill="none">
                     <path d="M9.99996 4.16667V15.8333M4.16663 10H15.8333" stroke="#66707A" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <button>Add New Task</button>
             </div>
-            <app-task-item content="Go to the market" [subtaskQuantity]="2"
-                [tags]="[{id: '1', name: 'hello'}]" [isDone]="true" [isImportant]="false"
-                [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails()"
-                (doneTaskEventEmitter)="toggleDoneTask($event)"
+            @for (todoTask of todoTasks; track todoTask.id) {
+            <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubTasks.length"
+                [tags]="[{id: '1', name: 'hello'}]" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
+                [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
+                (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
+                (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
+            }
+
+            <!-- <app-task-item content="Go to the market" [subtaskQuantity]="2" [tags]="[{id: '1', name: 'hello'}]"
+                [isDone]="true" [isImportant]="false" [isSelectedItem]="true"
+                (taskItemEventEmitter)="openTaskItemDetails()" (doneTaskEventEmitter)="toggleDoneTask($event)"
                 (importantTaskEventEmitter)="toggleImportantTask($event)"></app-task-item>
-            <app-task-item content="Go to work" [tags]="[{id: '1', name: 'work'}]" [isDone]="false" [isImportant]="false"
-                (taskItemEventEmitter)="openTaskItemDetails()"
-                (doneTaskEventEmitter)="toggleDoneTask($event)"></app-task-item>
+
+
+            <app-task-item content="Go to work" [tags]="[{id: '1', name: 'work'}]" [isDone]="false"
+                [isImportant]="false" (taskItemEventEmitter)="openTaskItemDetails()"
+                (doneTaskEventEmitter)="toggleDoneTask($event)"></app-task-item> -->
         </div>
     </div>
     <div class="right-sidebar">
-        <app-task-details-sidebar></app-task-details-sidebar>
+        <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
+            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)" [todoTask]="selectedTodoTask"></app-task-details-sidebar>
     </div>
 </section>

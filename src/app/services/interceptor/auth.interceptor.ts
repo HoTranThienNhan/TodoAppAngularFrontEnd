@@ -2,8 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpInterceptorFn } from '@angular/common
 import { AuthService } from '../auth/auth.service';
 import { inject } from '@angular/core';
 import * as globalVars from '../../../global';
-import { catchError, EMPTY, finalize, Observable, throwError } from 'rxjs';
-import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
+import { catchError,  Observable, throwError } from 'rxjs';
 import { UserStore } from '../../stores/user.store';
 import { User } from '../../models/user/user.model';
 
@@ -34,7 +33,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
   return next(authReq).pipe(
     catchError((err: HttpErrorResponse) => {
       if (err.status == 401) {
-        const user: User = userStore.getUser();
+        const user: User = JSON.parse(sessionStorage.getItem("user")!);
         authService.refreshToken({ userId: user.id }).subscribe({
           next: (res) => {
             // set new access token

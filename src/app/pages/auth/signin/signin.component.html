@@ -13,7 +13,7 @@
                 <div class="forgot-password" (click)="forgotPassword()">
                     Forgot password?
                 </div>
-                <div class="error-response-message" [class.hidden]="errorMessage.length === 0">
+                <div class="error-response-message" [class.hidden]="errorMessage && errorMessage.length === 0">
                     {{ errorMessage }}
                 </div>
                 <app-spinner [isLoading]="isLoading">
