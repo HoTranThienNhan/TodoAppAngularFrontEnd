@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TodoTask } from '../../models/todo-task/todo-task/todo-task.model';
 import { AllTodoTasksResDto } from '../../models/todo-task/all-todo-tasks-res-dto/all-todo-tasks-res-dto.model';
+import { UpdateTodoTaskResDto } from '../../models/todo-task/update-todo-task-res-dto/update-todo-task-res-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +28,15 @@ export class TodoTaskService {
     return this.http.get<AllTodoTasksResDto>(fullApiUrl);
   }
 
-  update(todoTask: TodoTask): Observable<any> {
+  getDetails(id: string): Observable<any> {
+    let fullApiUrl = this.apiUrl + `/details?id=${id}`;
+
+    return this.http.get<any>(fullApiUrl);
+  }
+
+  update(todoTask: TodoTask): Observable<UpdateTodoTaskResDto> {
     let fullApiUrl = this.apiUrl + "/update";
 
-    return this.http.post<any>(fullApiUrl, todoTask);
+    return this.http.post<UpdateTodoTaskResDto>(fullApiUrl, todoTask);
   }
 }

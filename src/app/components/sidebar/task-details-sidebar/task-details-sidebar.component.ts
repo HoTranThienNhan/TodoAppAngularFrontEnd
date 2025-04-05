@@ -5,10 +5,13 @@ import { AddTagComponent } from "../../modals/add-tag/add-tag.component";
 import { SubtaskComponent } from "../../subtask/subtask.component";
 import { ButtonComponent } from "../../buttons/button/button.component";
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import { User } from '../../../models/user/user.model';
 import { Tag } from '../../../models/tag/tag/tag.model';
+import { TodoSubtask } from '../../../models/todo-subtask/todo-subtask/todo-subtask';
+import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-task-details-sidebar',
@@ -18,16 +21,19 @@ import { Tag } from '../../../models/tag/tag/tag.model';
 })
 export class TaskDetailsSidebarComponent {
   // props
-  isImportant = model<boolean>(false);
   isCollapsed = model<boolean>(true);
-  notifyCollapsedEventEmitter = output<boolean>();
   todoTask = input<TodoTask>();
   user = input<User>();
   todoTaskDetailsForm!: FormGroup;
   currentSelectedTags: Array<Tag> = [];
+  notifyCollapsedEventEmitter = output<boolean>();
+  notifyUpdateTodoTaskEventEmitter = output<void>();
+  c: string = "hello";
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
+  todoTaskService: TodoTaskService = inject(TodoTaskService);
+  message: NzMessageService = inject(NzMessageService);
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
@@ -41,11 +47,35 @@ export class TaskDetailsSidebarComponent {
       isDone: [false, []],
       isDeleted: [false, []],
       userId: ["", []],
-      tags: [[], []],
+      tags: this.fb.array([]),
+      todoSubtasks: this.fb.array([{
+        id: ["", []],
+        name: ["", []],
+        isDone: [false, []],
+      }]),
     });
   }
 
   todoTaskEffect = effect(() => {
+    this.setInitTodoTaskDetailsForm();
+  });
+
+  // getters, setters
+  get tags(): FormArray {
+    return this.todoTaskDetailsForm.get('tags') as FormArray;
+  }
+
+  get todoSubtasks(): FormArray {
+    return this.todoTaskDetailsForm.get('todoSubtasks') as FormArray;
+  }
+
+  get isImportant(): FormControl {
+    return this.todoTaskDetailsForm.get('isImportant') as FormControl;
+  }
+
+
+  // methods
+  setInitTodoTaskDetailsForm(): void {
     if (this.todoTask()) {
       this.todoTaskDetailsForm = this.fb.group({
         id: [this.todoTask()!.id, []],
@@ -56,19 +86,14 @@ export class TaskDetailsSidebarComponent {
         isDone: [this.todoTask()!.isDone, []],
         isDeleted: [this.todoTask()!.isDeleted, []],
         userId: [this.todoTask()!.userId, []],
-        tags: [this.todoTask()?.tags, []]
+        tags: [this.todoTask()?.tags, []],
+        todoSubtasks: [this.todoTask()?.todoSubTasks, []],
       });
       
       this.currentSelectedTags = this.todoTask()?.tags!;
     }
-  });
-
-  // getters, setters
-  get tags(): FormControl {
-    return this.todoTaskDetailsForm.get('tags') as FormControl;
   }
 
-  // methods
   checkAsImportant(): void {
     // important element
     if (this.importantEl.nativeElement.classList.contains('checked')) {
@@ -77,7 +102,6 @@ export class TaskDetailsSidebarComponent {
       this.importantEl.nativeElement.classList.add('checked');
     }
     // emit isImportant
-    this.isImportant.set(!this.isImportant());
     this.todoTaskDetailsForm.get('isImportant')!.patchValue(!this.todoTaskDetailsForm.get('isImportant')!.value);
   }
 
@@ -85,16 +109,34 @@ export class TaskDetailsSidebarComponent {
     this.todoTaskDetailsForm.get('date')!.patchValue(dayjs(date).format());
   }
 
-  toggleDoneSubtask(subtask: { 'id': string, 'isDone': boolean }): void {
-    console.log("subtask", subtask);
+  toggleDoneSubtask(subtask: TodoSubtask): void {
+    this.todoSubtasks.value.filter((item: TodoSubtask, index: number) => {
+      if (subtask.name === item.name) {
+        this.todoSubtasks.value[index] = {
+          ...this.todoSubtasks.value[index],
+          isDone: subtask.isDone
+        };
+      }
+    })
   }
 
   addNewSubtask(newSubtask: string): void {
-    console.log("newSubtask", newSubtask);
+    if (newSubtask !== "") {
+      let todoSubtask: TodoSubtask = {
+        isDone: false,
+        name: newSubtask,
+      };
+  
+      this.todoSubtasks.patchValue([...this.todoSubtasks.value, todoSubtask]);
+    }
   }
 
-  deleteSubtask(id: string): void {
-    console.log("id", id);
+  deleteSubtask(name: string): void {
+    let filteredTodoSubtasks = this.todoSubtasks.value.filter((item: TodoSubtask) => {
+      return item.name !== name;
+    });
+
+    this.todoSubtasks.setValue(filteredTodoSubtasks);
   }
 
   selectTags(tags: Array<Tag>): void {
@@ -104,11 +146,31 @@ export class TaskDetailsSidebarComponent {
 
   closeSidebar(): void {
     this.isCollapsed.set(true);
-    this.notifyCollapsedEventEmitter.emit(this.isCollapsed())
+    this.notifyCollapsedEventEmitter.emit(this.isCollapsed());
+    this.setInitTodoTaskDetailsForm();
   }
 
   saveChanges(): void {
-    console.log(this.todoTaskDetailsForm.value);
+    this.isCollapsed.set(true);
+    this.notifyCollapsedEventEmitter.emit(this.isCollapsed());
+    this.todoTaskService.update(this.todoTaskDetailsForm.value).subscribe({
+      next: (res) => {
+        this.notifyUpdateTodoTaskEventEmitter.emit();
+
+        this.message.success('Update todo task successfully!', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+
+        this.message.error(err.error.message, {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+      }
+    });
   }
 
 }

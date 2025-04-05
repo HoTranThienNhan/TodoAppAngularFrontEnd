@@ -38,9 +38,14 @@
                 accent-color: variables.$success-300;
             }
 
-            span {
+            .subtask-name {
                 font-size: 14px;
                 color: variables.$surface-400;
+
+                &:focus {
+                    border: 0;
+                    outline: none;
+                }
             }
         }
     }

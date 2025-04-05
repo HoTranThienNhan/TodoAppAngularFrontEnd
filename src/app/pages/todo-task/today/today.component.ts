@@ -10,6 +10,7 @@ import { ConvertDateStringPipe } from '../../../pipes/convert-date-string.pipe';
 import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-today',
@@ -34,6 +35,7 @@ export class TodayComponent {
   router: Router = inject(Router);
   userStore = inject(UserStore);
   todoTaskService: TodoTaskService = inject(TodoTaskService);
+  message: NzMessageService = inject(NzMessageService);
 
   // hooks
   ngOnInit(): void {
@@ -69,9 +71,33 @@ export class TodayComponent {
       ...todoTask,
       isImportant: isImportant,
     }).subscribe();
+
+    this.message.success('Mark Todo task as Important!', {
+      nzDuration: 3000,
+      nzPauseOnHover: true,
+    });
+
+    this.todoTaskService.getAll(this.user.id, "Today").subscribe({
+      next: (res) => {
+        this.todoTasks = res.data!;
+      }
+    });
+    
+    this.selectedTodoTask = {
+      ...todoTask,
+      isImportant: isImportant,
+    };
   }
 
   toggleRightSidebarCollapsed(isCollapsed: boolean): void {
     this.rightSidebarCollapsed = isCollapsed;
+  }
+
+  notifyUpdateTodoTask(): void {
+    this.todoTaskService.getAll(this.user.id, "Today").subscribe({
+      next: (res) => {
+        this.todoTasks = res.data!;
+      }
+    });
   }
 }

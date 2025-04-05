@@ -11,7 +11,7 @@
             </div>
             <div class="name-section flex flex-row">
                 <svg class="important cursor-pointer"
-                    [class]="{'checked': false}" #importantEl
+                    [class]="{'checked': isImportant.value}" #importantEl
                     (click)="checkAsImportant()" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                     viewBox="0 0 20 20" fill="none">
                     <path
@@ -31,24 +31,13 @@
             </div>
             <div class="tags-section flex flex-row flex-wrap gap-y-[10px] items-center">
                 <span class="tags-title">Tags:</span>
-                @for (tag of tags.value; track tag) {
+                @for (tag of tags.value; track tag.name) {
                     <app-tag>{{ tag.name }}</app-tag>
                 }
                 <app-add-tag addTagModalTitle="Select Tags" [user]="user()" [selectedTags]="currentSelectedTags" (selectTagsEventEmitter)="selectTags($event)"></app-add-tag>
             </div>
             <div class="subtasks-section">
-                <app-subtask [subtasksList]="[
-                {
-                    'id': 'abcdef',
-                    'name': 'Buy rice',
-                    'isDone': true
-                },
-                {
-                    'id': 'kfc',
-                    'name': 'Buy fish',
-                    'isDone': false
-                }
-                ]" (doneSubtaskEventEmitter)="toggleDoneSubtask($event)"
+                <app-subtask [subtasksList]="todoSubtasks.value" (doneSubtaskEventEmitter)="toggleDoneSubtask($event)"
                     (addNewSubtaskEventEmitter)="addNewSubtask($event)"
                     (deleteSubtaskEventEmitter)="deleteSubtask($event)"></app-subtask>
             </div>

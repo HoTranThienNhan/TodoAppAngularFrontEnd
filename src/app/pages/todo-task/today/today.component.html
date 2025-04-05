@@ -22,25 +22,17 @@
             </div>
             @for (todoTask of todoTasks; track todoTask.id) {
             <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubTasks.length"
-                [tags]="[{id: '1', name: 'hello'}]" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
+                [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
                 [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
                 (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
                 (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
             }
-
-            <!-- <app-task-item content="Go to the market" [subtaskQuantity]="2" [tags]="[{id: '1', name: 'hello'}]"
-                [isDone]="true" [isImportant]="false" [isSelectedItem]="true"
-                (taskItemEventEmitter)="openTaskItemDetails()" (doneTaskEventEmitter)="toggleDoneTask($event)"
-                (importantTaskEventEmitter)="toggleImportantTask($event)"></app-task-item>
-
-
-            <app-task-item content="Go to work" [tags]="[{id: '1', name: 'work'}]" [isDone]="false"
-                [isImportant]="false" (taskItemEventEmitter)="openTaskItemDetails()"
-                (doneTaskEventEmitter)="toggleDoneTask($event)"></app-task-item> -->
         </div>
     </div>
     <div class="right-sidebar">
         <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
-            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)" [todoTask]="selectedTodoTask" [user]="user"></app-task-details-sidebar>
+            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
+            (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask"
+            [user]="user"></app-task-details-sidebar>
     </div>
 </section>

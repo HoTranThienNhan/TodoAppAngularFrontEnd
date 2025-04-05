@@ -1,25 +1,27 @@
 import { Component, input, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TodoSubtask } from '../../models/todo-subtask/todo-subtask/todo-subtask';
 
 @Component({
   selector: 'app-subtask',
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './subtask.component.html',
   styleUrl: './subtask.component.scss'
 })
 export class SubtaskComponent {
   // props
-  subtasksList = input<Array<{'id': string, 'name': string, 'isDone': boolean}>>([]);
-  doneSubtaskEventEmitter = output<{'id': string, 'isDone': boolean}>();
+  subtasksList = input<Array<TodoSubtask>>([]);
+  doneSubtaskEventEmitter = output<TodoSubtask>();
   newSubtask: string = "";
   addNewSubtaskEventEmitter = output<string>();
   deleteSubtaskEventEmitter = output<string>();
   
   // methods
-  toggleDoneSubtask(e: Event, id: string): void {
+  toggleDoneSubtask(e: Event, name: string, id: string): void {
     this.doneSubtaskEventEmitter.emit({
-      'id': id,
-      'isDone': (e.target as HTMLInputElement).checked
+      id: id,
+      name: name,
+      isDone: (e.target as HTMLInputElement).checked
     });
   }
 
@@ -28,7 +30,7 @@ export class SubtaskComponent {
     this.newSubtask = "";
   }
 
-  deleteSubtask(id: string): void {
-    this.deleteSubtaskEventEmitter.emit(id);
+  deleteSubtask(name: string): void {
+    this.deleteSubtaskEventEmitter.emit(name);
   }
 }

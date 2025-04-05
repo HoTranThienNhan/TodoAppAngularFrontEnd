@@ -48,7 +48,9 @@ export class AddTagComponent {
   selectedTagsEffect = effect(() => {
     if (this.selectedTags()) {
       this.selectedTags().map((tag) => {
-        this.selectedTagsString.push(tag.name);
+        if (!this.selectedTagsString.includes(tag.name)) {
+          this.selectedTagsString.push(tag.name);
+        }
       });
     }
   });
@@ -56,6 +58,12 @@ export class AddTagComponent {
   // methods
   showModal(): void {
     this.isVisible = true;
+    
+    this.tagService.getAllByUserId(this.user()!.id).subscribe({
+      next: (res) => {
+        this.tags = res.data?.tags!;
+      }
+    });
   }
 
   selectTags(tagsString: Array<string>): void {

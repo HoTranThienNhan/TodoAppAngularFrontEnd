@@ -1,5 +1,5 @@
 <div class="subtask flex flex-col">
-    <div class="title">Subtasks ({{ subtasksList().length }})</div>
+    <div class="title">Subtasks ({{ subtasksList() && subtasksList().length }})</div>
     <div class="add-new-subtask flex flex-row items-center ms-[20px]">
         <svg class="cursor-pointer" (click)="addNewSubtask()" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
             viewBox="0 0 20 20" fill="none">
@@ -9,14 +9,14 @@
         <input type="text" [(ngModel)]="newSubtask" placeholder="Add New Subtask">
     </div>
     <div class="subtasks-list ms-[20px]">
-        @for (subtaskItem of subtasksList(); track subtaskItem.id) {
+        @for (subtaskItem of subtasksList(); track subtaskItem.name) {
         <div class="subtask-item flex flex-row justify-between items-center">
             <div class="flex flex-row items-center">
                 <input type="checkbox" class="checkbox" [checked]="subtaskItem.isDone"
-                    (change)="toggleDoneSubtask($event, subtaskItem.id)">
-                <span>{{ subtaskItem.name }}</span>
+                    (change)="toggleDoneSubtask($event, subtaskItem.name!, subtaskItem.id!)">
+                <input type="text" class="subtask-name" [(ngModel)]="subtaskItem.name">
             </div>
-            <svg class="cursor-pointer" (click)="deleteSubtask(subtaskItem.id)" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <svg class="cursor-pointer" (click)="deleteSubtask(subtaskItem.name!)" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M12 2L2 12M2 2L12 12" stroke="#66707A" stroke-width="3" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg>
