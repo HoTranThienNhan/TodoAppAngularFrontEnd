@@ -25,9 +25,13 @@ export class SubtaskComponent {
     });
   }
 
+  resetNewSubtaskInputValue(): void {
+    this.newSubtask = "";
+  }
+
   addNewSubtask(): void {
     this.addNewSubtaskEventEmitter.emit(this.newSubtask);
-    this.newSubtask = "";
+    this.resetNewSubtaskInputValue();
   }
 
   deleteSubtask(name: string): void {

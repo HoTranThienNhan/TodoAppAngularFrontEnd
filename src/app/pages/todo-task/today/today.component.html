@@ -7,7 +7,7 @@
             Today
         </div>
         <div class="introduction">
-            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have {{ todoTasks.length |
+            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have {{ todoTasks!.length |
             i18nPlural: todoTasksQuantityTextMapping }} today ({{
             currentDate | convertDateString : 'DD/MM/YYYY' }}).
         </div>
@@ -21,7 +21,7 @@
                 <button>Add New Task</button>
             </div>
             @for (todoTask of todoTasks; track todoTask.id) {
-            <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubTasks.length"
+            <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
                 [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
                 [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
                 (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
@@ -33,6 +33,6 @@
         <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
             (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
             (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask"
-            [user]="user"></app-task-details-sidebar>
+            [user]="user" [taskDetailsType]="taskDetailsType"></app-task-details-sidebar>
     </div>
 </section>

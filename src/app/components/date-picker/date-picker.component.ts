@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzDatePickerComponent, NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { en_US, NzI18nService } from 'ng-zorro-antd/i18n'
+import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
+import { differenceInCalendarDays } from 'date-fns';
 
 @Component({
   selector: 'app-date-picker',
@@ -35,4 +36,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   openDatePicker(): void {
     this.datePickerEl.open();
   }
+
+  disabledDate = (current: Date): boolean =>
+    differenceInCalendarDays(current, new Date()) < 0;
 }

@@ -36,13 +36,13 @@ export class AddTagComponent {
 
   // hooks
   ngOnInit(): void {
-    if (this.user()!.id !== "") {
-      this.tagService.getAllByUserId(this.user()!.id).subscribe({
-        next: (res) => {
-          this.tags = res.data?.tags!;
-        }
-      });
-    }
+    // if (this.user()!.id !== "") {
+    //   this.tagService.getAllByUserId(this.user()!.id).subscribe({
+    //     next: (res) => {
+    //       this.tags = res.data?.tags!;
+    //     }
+    //   });
+    // }
   }
   
   selectedTagsEffect = effect(() => {

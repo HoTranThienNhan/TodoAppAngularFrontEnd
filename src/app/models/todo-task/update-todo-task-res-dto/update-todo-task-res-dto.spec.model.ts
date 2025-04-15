@@ -1,4 +1,4 @@
-import { UpdateTodoTaskResDto } from './update-todo-task-res-dto';
+import { UpdateTodoTaskResDto } from "./update-todo-task-res-dto.model";
 
 describe('UpdateTodoTaskResDto', () => {
   it('should create an instance', () => {

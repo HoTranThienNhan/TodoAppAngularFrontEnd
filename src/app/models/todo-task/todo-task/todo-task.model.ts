@@ -12,5 +12,5 @@ export class TodoTask {
     userId!: string;
     createdAt!: string;
     tags!: Array<Tag>;
-    todoSubTasks!: Array<TodoSubtask>;
+    todoSubtasks!: Array<TodoSubtask>;
 }

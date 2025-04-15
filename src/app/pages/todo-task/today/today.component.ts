@@ -30,6 +30,7 @@ export class TodayComponent {
   };
   rightSidebarCollapsed: boolean = true;
   selectedTodoTask!: TodoTask;
+  taskDetailsType: "Add" | "Update" = "Add";
 
   // injection
   router: Router = inject(Router);
@@ -51,12 +52,27 @@ export class TodayComponent {
 
   // methods
   openAddNewTask(): void {
-    console.log("open add new task");
+    this.rightSidebarCollapsed = false;
+    this.taskDetailsType = "Add";
+    this.selectedTodoTask = {
+      id: "",
+      name: "",
+      description: "",
+      date: "",
+      isImportant: false,
+      isDone: false,
+      isDeleted: false,
+      userId: this.user.id,
+      createdAt: "",
+      tags: [],
+      todoSubtasks: [],
+    };
   }
 
   openTaskItemDetails(todoTask: TodoTask): void {
     this.rightSidebarCollapsed = false;
     this.selectedTodoTask = todoTask;
+    this.taskDetailsType = "Update";
   }
 
   toggleDoneTask(isDone: boolean, todoTask: TodoTask): void {

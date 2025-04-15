@@ -19,7 +19,7 @@
                         stroke="#EE9322" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <div class="title-name">
-                    <input type="text" formControlName="name">
+                    <input type="text" formControlName="name" placeholder="Task name">
                 </div>
             </div>
             <div class="description-section">
@@ -44,7 +44,9 @@
         </form>
     </div>
     <div class="bottom-sidebar flex flex-row gap-x-[18px]">
-        <app-button class="grow" buttonType="Cancel">Delete Task</app-button>
-        <app-button class="grow" buttonType="Ok" (click)="saveChanges()">Save Changes</app-button>
+        <app-button class="grow" buttonType="Cancel">{{ taskDetailsType() === 'Add' ? 'Cancel' : 'Delete Task' }}</app-button>
+        <app-button class="grow" buttonType="Ok" (click)="taskDetailsType() === 'Add' ? addNew() : saveChanges()">
+            {{ taskDetailsType() === 'Add' ? 'Add New' : 'Save Changes' }}
+        </app-button>
     </div>
 </div>

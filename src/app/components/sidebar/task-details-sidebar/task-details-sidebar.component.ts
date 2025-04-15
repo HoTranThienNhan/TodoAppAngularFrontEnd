@@ -28,7 +28,7 @@ export class TaskDetailsSidebarComponent {
   currentSelectedTags: Array<Tag> = [];
   notifyCollapsedEventEmitter = output<boolean>();
   notifyUpdateTodoTaskEventEmitter = output<void>();
-  c: string = "hello";
+  taskDetailsType = input<"Add" | "Update">("Add");
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
@@ -37,6 +37,7 @@ export class TaskDetailsSidebarComponent {
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
+  @ViewChild(SubtaskComponent) subtaskComp!: SubtaskComponent;
   ngOnInit(): void {
     this.todoTaskDetailsForm = this.fb.group({
       id: ["", []],
@@ -61,6 +62,13 @@ export class TaskDetailsSidebarComponent {
   });
 
   // getters, setters
+  get name(): FormGroup {
+    return this.todoTaskDetailsForm.get('name') as FormGroup;
+  }
+
+  get description(): FormGroup {
+    return this.todoTaskDetailsForm.get('description') as FormGroup;
+  }
   get tags(): FormArray {
     return this.todoTaskDetailsForm.get('tags') as FormArray;
   }
@@ -81,13 +89,13 @@ export class TaskDetailsSidebarComponent {
         id: [this.todoTask()!.id, []],
         name: [this.todoTask()!.name ?? "", []],
         description: [this.todoTask()!.description, []],
-        date: [this.todoTask()!.date, []],
+        date: [this.todoTask()!.date !== "" ? this.todoTask()!.date : dayjs().format(), []],
         isImportant: [this.todoTask()!.isImportant, []],
         isDone: [this.todoTask()!.isDone, []],
         isDeleted: [this.todoTask()!.isDeleted, []],
         userId: [this.todoTask()!.userId, []],
         tags: [this.todoTask()?.tags, []],
-        todoSubtasks: [this.todoTask()?.todoSubTasks, []],
+        todoSubtasks: [this.todoTask()?.todoSubtasks, []],
       });
       
       this.currentSelectedTags = this.todoTask()?.tags!;
@@ -148,6 +156,43 @@ export class TaskDetailsSidebarComponent {
     this.isCollapsed.set(true);
     this.notifyCollapsedEventEmitter.emit(this.isCollapsed());
     this.setInitTodoTaskDetailsForm();
+    this.subtaskComp.resetNewSubtaskInputValue();
+    this.notifyUpdateTodoTaskEventEmitter.emit();
+  }
+
+  addNew(): void {
+    if (this.name.value === "") {
+      this.message.error('Task name is required!', {
+        nzDuration: 3000,
+        nzPauseOnHover: true,
+      });
+    } else if (this.description.value === "") {
+      this.message.error('Description is required!', {
+        nzDuration: 3000,
+        nzPauseOnHover: true,
+      });
+    } else {
+      this.isCollapsed.set(true);
+      this.notifyCollapsedEventEmitter.emit(this.isCollapsed());
+      this.todoTaskService.add(this.todoTaskDetailsForm.value).subscribe({
+        next: (res) => {
+          this.notifyUpdateTodoTaskEventEmitter.emit();
+
+          this.message.success('Add todo task successfully!', {
+            nzDuration: 3000,
+            nzPauseOnHover: true,
+          });
+        },
+        error: (err) => {
+          console.log(err);
+  
+          this.message.error(err.error.message, {
+            nzDuration: 3000,
+            nzPauseOnHover: true,
+          });
+        }
+      });
+    }
   }
 
   saveChanges(): void {
