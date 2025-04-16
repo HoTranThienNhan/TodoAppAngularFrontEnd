@@ -46,4 +46,10 @@ export class TodoTaskService {
 
     return this.http.post<UpdateTodoTaskResDto>(fullApiUrl, todoTask);
   }
+
+  delete(id: string): Observable<any> {
+    let fullApiUrl = this.apiUrl +  `/delete?id=${id}`;
+
+    return this.http.delete<any>(fullApiUrl);
+  }
 }

@@ -12,10 +12,13 @@ import { Tag } from '../../../models/tag/tag/tag.model';
 import { TodoSubtask } from '../../../models/todo-subtask/todo-subtask/todo-subtask';
 import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { AlertComponent } from "../../sweet-alert/alert/alert.component";
+import { AlertProps } from '../../../../types';
+import { AlertService } from '../../../services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-task-details-sidebar',
-  imports: [DatePickerComponent, TagComponent, AddTagComponent, SubtaskComponent, ButtonComponent, ReactiveFormsModule],
+  imports: [DatePickerComponent, TagComponent, AddTagComponent, SubtaskComponent, ButtonComponent, ReactiveFormsModule, AlertComponent],
   templateUrl: './task-details-sidebar.component.html',
   styleUrl: './task-details-sidebar.component.scss'
 })
@@ -29,15 +32,18 @@ export class TaskDetailsSidebarComponent {
   notifyCollapsedEventEmitter = output<boolean>();
   notifyUpdateTodoTaskEventEmitter = output<void>();
   taskDetailsType = input<"Add" | "Update">("Add");
+  alertProps!: AlertProps;
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
   todoTaskService: TodoTaskService = inject(TodoTaskService);
   message: NzMessageService = inject(NzMessageService);
+  alertService: AlertService = inject(AlertService);
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
   @ViewChild(SubtaskComponent) subtaskComp!: SubtaskComponent;
+  @ViewChild(AlertComponent) alertCloseSidebarComp!: AlertComponent;
   ngOnInit(): void {
     this.todoTaskDetailsForm = this.fb.group({
       id: ["", []],
@@ -62,6 +68,10 @@ export class TaskDetailsSidebarComponent {
   });
 
   // getters, setters
+  get id(): FormGroup {
+    return this.todoTaskDetailsForm.get('id') as FormGroup;
+  }
+
   get name(): FormGroup {
     return this.todoTaskDetailsForm.get('name') as FormGroup;
   }
@@ -97,7 +107,7 @@ export class TaskDetailsSidebarComponent {
         tags: [this.todoTask()?.tags, []],
         todoSubtasks: [this.todoTask()?.todoSubtasks, []],
       });
-      
+
       this.currentSelectedTags = this.todoTask()?.tags!;
     }
   }
@@ -134,7 +144,7 @@ export class TaskDetailsSidebarComponent {
         isDone: false,
         name: newSubtask,
       };
-  
+
       this.todoSubtasks.patchValue([...this.todoSubtasks.value, todoSubtask]);
     }
   }
@@ -150,6 +160,27 @@ export class TaskDetailsSidebarComponent {
   selectTags(tags: Array<Tag>): void {
     this.todoTaskDetailsForm.get('tags')!.patchValue(tags);
     this.currentSelectedTags = tags;
+  }
+
+  onCloseSidebar(): void {
+    this.alertProps = {
+      title: 'Verification!',
+      htmlText: `Are you sure to cancel all the changes?`,
+      icon: 'warning',
+      iconColor: 'orange',
+      showConfirmButton: true,
+      showDenyButton: true,
+      showCloseButton: false,
+      confirmButtonText: 'Ok',
+      denyButtonText: 'No',
+      reverseButtons: true,
+      allowOutsideClick: false,
+      customClass: 'custom-alert-modal',
+    };
+    this.alertCloseSidebarComp.open(this.alertProps);
+    this.alertService.confirm(() => {
+      this.closeSidebar();
+    });
   }
 
   closeSidebar(): void {
@@ -185,7 +216,7 @@ export class TaskDetailsSidebarComponent {
         },
         error: (err) => {
           console.log(err);
-  
+
           this.message.error(err.error.message, {
             nzDuration: 3000,
             nzPauseOnHover: true,
@@ -193,6 +224,70 @@ export class TaskDetailsSidebarComponent {
         }
       });
     }
+  }
+
+  onCancelAddTask(): void {
+    this.alertProps = {
+      title: 'Verification!',
+      htmlText: `Are you sure to cancel adding new task?`,
+      icon: 'warning',
+      iconColor: 'orange',
+      showConfirmButton: true,
+      showDenyButton: true,
+      showCloseButton: false,
+      confirmButtonText: 'Ok',
+      denyButtonText: 'No',
+      reverseButtons: true,
+      allowOutsideClick: false,
+      customClass: 'custom-alert-modal',
+    };
+    this.alertCloseSidebarComp.open(this.alertProps);
+    this.alertService.confirm(() => {
+      this.cancelAddTask();
+    });
+  }
+
+  cancelAddTask(): void {
+    this.closeSidebar();
+  }
+
+  onDeleteTask(id: string): void {
+    this.alertProps = {
+      title: 'Verification!',
+      htmlText: `Are you sure to delete this task?`,
+      icon: 'warning',
+      iconColor: 'orange',
+      showConfirmButton: true,
+      showDenyButton: true,
+      showCloseButton: false,
+      confirmButtonText: 'Ok',
+      denyButtonText: 'No',
+      reverseButtons: true,
+      allowOutsideClick: false,
+      customClass: 'custom-alert-modal',
+    };
+    this.alertCloseSidebarComp.open(this.alertProps);
+    this.alertService.confirm(() => {
+      this.deleteTask(id);
+    });
+  }
+
+  deleteTask(id: string): void {
+    this.todoTaskService.delete(id).subscribe({
+      next: (res) => {
+        this.notifyUpdateTodoTaskEventEmitter.emit();
+
+        this.message.success('Delete todo task successfully!', {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+        
+        this.closeSidebar();
+      },
+      error: (err) => {
+          console.log(err);
+      },
+    });
   }
 
   saveChanges(): void {

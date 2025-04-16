@@ -80,6 +80,18 @@ export class TodayComponent {
       ...todoTask,
       isDone: isDone,
     }).subscribe();
+
+    let messageContent: string = '';
+    if (isDone) {
+      messageContent = 'Mark Todo task as Done!';
+    } else {
+      messageContent = 'Unmark Todo task as Done!';
+    }
+
+    this.message.success(messageContent, {
+      nzDuration: 3000,
+      nzPauseOnHover: true,
+    });
   }
 
   toggleImportantTask(isImportant: boolean, todoTask: TodoTask): void {
@@ -88,7 +100,14 @@ export class TodayComponent {
       isImportant: isImportant,
     }).subscribe();
 
-    this.message.success('Mark Todo task as Important!', {
+    let messageContent: string = '';
+    if (isImportant) {
+      messageContent = 'Mark Todo task as Important!';
+    } else {
+      messageContent = 'Unmark Todo task as Important!';
+    }
+
+    this.message.success(messageContent, {
       nzDuration: 3000,
       nzPauseOnHover: true,
     });

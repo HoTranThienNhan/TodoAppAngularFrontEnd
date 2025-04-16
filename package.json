@@ -23,6 +23,7 @@
     "@angular/upgrade": "^19.2.4",
     "@ng-select/ng-select": "^14.2.4",
     "@ngrx/signals": "^19.0.1",
+    "@sweetalert2/ngx-sweetalert2": "^13.0.0",
     "@tailwindcss/postcss": "^4.0.9",
     "dayjs": "^1.11.13",
     "google-libphonenumber": "^3.2.40",
@@ -31,6 +32,7 @@
     "node": "^23.11.0",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.18.0",
     "tailwindcss": "^4.1.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

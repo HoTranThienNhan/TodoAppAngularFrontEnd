@@ -7,6 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { authInterceptor } from './services/interceptor/auth.interceptor';
 import { I18nPluralPipe } from '@angular/common';
+import { AlertService } from './services/shared/alert/alert.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor]),
     ),
     AuthService,
+    AlertService,
     provideAnimations(),
     I18nPluralPipe
   ]

@@ -4,7 +4,7 @@
             <div class="title-section flex flex-row justify-between">
                 <div class="sidebar-title">Task</div>
                 <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="28" height="28"
-                    viewBox="0 0 28 28" fill="none" (click)="closeSidebar()">
+                    viewBox="0 0 28 28" fill="none" (click)="onCloseSidebar()">
                     <path d="M21 7L7 21M7 7L21 21" stroke="#66707A" stroke-width="2.10914" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
@@ -44,9 +44,11 @@
         </form>
     </div>
     <div class="bottom-sidebar flex flex-row gap-x-[18px]">
-        <app-button class="grow" buttonType="Cancel">{{ taskDetailsType() === 'Add' ? 'Cancel' : 'Delete Task' }}</app-button>
+        <app-button class="grow" buttonType="Cancel" (click)="taskDetailsType() === 'Add' ? onCancelAddTask() : onDeleteTask(id.value)">{{ taskDetailsType() === 'Add' ? 'Cancel' : 'Delete Task' }}</app-button>
         <app-button class="grow" buttonType="Ok" (click)="taskDetailsType() === 'Add' ? addNew() : saveChanges()">
             {{ taskDetailsType() === 'Add' ? 'Add New' : 'Save Changes' }}
         </app-button>
     </div>
 </div>
+
+<app-alert></app-alert>
