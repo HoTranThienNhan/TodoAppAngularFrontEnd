@@ -1,7 +1,5 @@
 <button [type]="buttonAction()"
-    [style.background-color]="buttonType() === 'Default' ? '#202327' : buttonType() === 'Cancel' ? '#66707A' : buttonType() === 'Ok' ? '#F2AB53' : '#fff'"
-    [style.color]="buttonType() === 'Outline' ? '#202327' : '#fff'"
-    [style.border]="buttonType() === 'Outline' && '1px solid #202327'"
+    [class]="{'btn-default': buttonType() === 'Default', 'btn-cancel': buttonType() === 'Cancel', 'btn-ok': buttonType() === 'Ok', 'btn-outline': buttonType() === 'Outline'}"
     [style.padding]="buttonSize() === 'sm' && '0'"
     [style.width]="buttonSize() === 'sm' && '95px'"
     [style.min-width]="buttonSize() === 'sm' && '95px'"

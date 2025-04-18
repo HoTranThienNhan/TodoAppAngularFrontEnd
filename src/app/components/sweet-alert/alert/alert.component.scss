@@ -1,0 +1,26 @@
+@use "../../../../../public/assets/sass/abstracts/variables";
+
+::ng-deep .custom-alert-modal {
+    .swal2-actions {
+        width: 100%;
+        padding: 0 50px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        button {
+            &.swal2-deny {
+                background-color: variables.$surface-200;
+            }
+
+            &.swal2-confirm {
+                background-color: variables.$warning-200;
+            }
+
+            color: variables.$surface-50;
+            border-radius: 8px;
+            min-width: 135px;
+            flex: 1;
+        }
+    }
+}

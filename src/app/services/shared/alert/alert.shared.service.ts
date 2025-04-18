@@ -5,8 +5,7 @@ import { AlertRequest } from '../../../../types';
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
-  // _isConfirmedBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+export class AlertSharedService {
   _alertRequestSubject: Subject<AlertRequest> = new Subject<AlertRequest>();
   alertRequest$: Observable<AlertRequest> = this._alertRequestSubject.asObservable();
 

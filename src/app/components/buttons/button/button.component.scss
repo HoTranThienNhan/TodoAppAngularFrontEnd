@@ -14,13 +14,41 @@ button {
     align-items: center;
     justify-content: center;
 
-    &.disabled {
-        background-color: variables.$surface-200!important;
-        cursor: not-allowed;
+    &.btn-default {
+        background-color: variables.$surface-400;
+
+        &:hover {
+            background-color: variables.$surface-200;
+            transition: .4s background-color;
+        }
     }
 
-    &:hover {
-        background-color: variables.$surface-300;
-        transition: .4s background-color;
+    &.btn-cancel {
+        background-color: variables.$surface-200;
+
+        &:hover {
+            background-color: variables.$surface-300;
+            transition: .4s background-color;
+        }
+    }
+
+    &.btn-ok {
+        background-color: variables.$warning-200;
+
+        &:hover {
+            background-color: variables.$warning-300;
+            transition: .4s background-color;
+        }
+    }
+
+    &.btn-outline {
+        background-color: #fff;
+        color: #202327;
+        border: 1px solid #202327;
+    }
+
+    &.disabled {
+        background-color: variables.$surface-200 !important;
+        cursor: not-allowed;
     }
 }

@@ -14,7 +14,7 @@ import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AlertComponent } from "../../sweet-alert/alert/alert.component";
 import { AlertProps } from '../../../../types';
-import { AlertService } from '../../../services/shared/alert/alert.service';
+import { AlertSharedService } from '../../../services/shared/alert/alert.shared.service';
 
 @Component({
   selector: 'app-task-details-sidebar',
@@ -38,7 +38,7 @@ export class TaskDetailsSidebarComponent {
   fb: FormBuilder = inject(FormBuilder);
   todoTaskService: TodoTaskService = inject(TodoTaskService);
   message: NzMessageService = inject(NzMessageService);
-  alertService: AlertService = inject(AlertService);
+  alertSharedService: AlertSharedService = inject(AlertSharedService);
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
@@ -165,7 +165,7 @@ export class TaskDetailsSidebarComponent {
   onCloseSidebar(): void {
     this.alertProps = {
       title: 'Verification!',
-      htmlText: `Are you sure to cancel all the changes?`,
+      htmlText: `Are you sure to <b>cancel</b> all the changes?`,
       icon: 'warning',
       iconColor: 'orange',
       showConfirmButton: true,
@@ -178,7 +178,7 @@ export class TaskDetailsSidebarComponent {
       customClass: 'custom-alert-modal',
     };
     this.alertCloseSidebarComp.open(this.alertProps);
-    this.alertService.confirm(() => {
+    this.alertSharedService.confirm(() => {
       this.closeSidebar();
     });
   }
@@ -229,7 +229,7 @@ export class TaskDetailsSidebarComponent {
   onCancelAddTask(): void {
     this.alertProps = {
       title: 'Verification!',
-      htmlText: `Are you sure to cancel adding new task?`,
+      htmlText: `Are you sure to <b>cancel</b> adding new task?`,
       icon: 'warning',
       iconColor: 'orange',
       showConfirmButton: true,
@@ -242,7 +242,7 @@ export class TaskDetailsSidebarComponent {
       customClass: 'custom-alert-modal',
     };
     this.alertCloseSidebarComp.open(this.alertProps);
-    this.alertService.confirm(() => {
+    this.alertSharedService.confirm(() => {
       this.cancelAddTask();
     });
   }
@@ -254,7 +254,7 @@ export class TaskDetailsSidebarComponent {
   onDeleteTask(id: string): void {
     this.alertProps = {
       title: 'Verification!',
-      htmlText: `Are you sure to delete this task?`,
+      htmlText: `Are you sure to <b>delete</b> this task?`,
       icon: 'warning',
       iconColor: 'orange',
       showConfirmButton: true,
@@ -267,7 +267,7 @@ export class TaskDetailsSidebarComponent {
       customClass: 'custom-alert-modal',
     };
     this.alertCloseSidebarComp.open(this.alertProps);
-    this.alertService.confirm(() => {
+    this.alertSharedService.confirm(() => {
       this.deleteTask(id);
     });
   }

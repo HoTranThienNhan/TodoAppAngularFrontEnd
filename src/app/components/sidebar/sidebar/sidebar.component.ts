@@ -14,6 +14,7 @@ import { TagService } from '../../../services/tag/tag.service';
 import { Tag } from '../../../models/tag/tag/tag.model';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { SidebarStateStore } from '../../../stores/sidebar.store';
+import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 
 @Component({
   selector: 'app-sidebar',

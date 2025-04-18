@@ -1,7 +1,7 @@
 import { Component, inject, output } from '@angular/core';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { AlertProps } from '../../../../types';
-import { AlertService } from '../../../services/shared/alert/alert.service';
+import { AlertSharedService } from '../../../services/shared/alert/alert.shared.service';
 
 @Component({
   selector: 'app-alert',
@@ -28,11 +28,11 @@ export class AlertComponent {
   onConfirmCallback!: () => void;
 
   // injection
-  alertService: AlertService = inject(AlertService);
+  alertSharedService: AlertSharedService = inject(AlertSharedService);
 
   // hooks
   ngOnInit(): void {
-    this.alertService.alertRequest$.subscribe(req => {
+    this.alertSharedService.alertRequest$.subscribe(req => {
       this.onConfirmCallback = req.onConfirm;
     });
   }

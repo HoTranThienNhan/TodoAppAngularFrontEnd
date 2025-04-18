@@ -11,6 +11,7 @@ import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
 
 @Component({
   selector: 'app-today',
@@ -37,6 +38,7 @@ export class TodayComponent {
   userStore = inject(UserStore);
   todoTaskService: TodoTaskService = inject(TodoTaskService);
   message: NzMessageService = inject(NzMessageService);
+  todoTaskSharedService: TodoTaskSharedService = inject(TodoTaskSharedService);
 
   // hooks
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class TodayComponent {
       this.todoTaskService.getAll(this.user.id, "Today").subscribe({
         next: (res) => {
           this.todoTasks = res.data!;
+
         }
       });
     }

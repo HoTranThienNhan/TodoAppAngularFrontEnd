@@ -35,11 +35,13 @@
         </div>
         <div class="tags-list flex flex-col">
             <div class="tags-list-title">TAGS</div>
-            <div class="flex flex-row gap-[7px] flex-wrap">
+            <div class="flex flex-col">
                 @if (!isCollapsed) {
-                @for (tag of tags; track tag.id) {
-                <app-tag [tagId]="tag.id">{{ tag.name }}</app-tag>
-                }
+                    <div class="tags flex flex-row gap-[7px] flex-wrap">
+                        @for (tag of tags; track tag.id) {
+                        <app-tag [tagId]="tag.id">{{ tag.name }}</app-tag>
+                        }
+                    </div>
                 <app-add-tag addTagModalTitle="Add Tag" [user]="user()!" (notifyRefetchTagsEventEmitter)="refetchAllTags()"></app-add-tag>
                 } @else {
                 <app-tag [isCollapsed]="isCollapsed">{{ '...' }}</app-tag>
