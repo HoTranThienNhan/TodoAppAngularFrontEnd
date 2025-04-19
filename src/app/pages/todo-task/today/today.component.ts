@@ -47,7 +47,12 @@ export class TodayComponent {
       this.todoTaskService.getAll(this.user.id, "Today").subscribe({
         next: (res) => {
           this.todoTasks = res.data!;
+        }
+      });
 
+      this.todoTaskService.getAll(this.user.id).subscribe({
+        next: (res) => {
+          this.todoTaskSharedService.setTodoTasks(res.data!);
         }
       });
     }
@@ -83,6 +88,18 @@ export class TodayComponent {
       ...todoTask,
       isDone: isDone,
     }).subscribe();
+
+    this.todoTaskService.getAll(this.user.id, "Today").subscribe({
+      next: (res) => {
+        this.todoTasks = res.data!;
+      }
+    });
+
+    this.todoTaskService.getAll(this.user.id).subscribe({
+      next: (res) => {
+        this.todoTaskSharedService.setTodoTasks(res.data!);
+      }
+    });
 
     let messageContent: string = '';
     if (isDone) {
@@ -120,6 +137,12 @@ export class TodayComponent {
         this.todoTasks = res.data!;
       }
     });
+
+    this.todoTaskService.getAll(this.user.id).subscribe({
+      next: (res) => {
+        this.todoTaskSharedService.setTodoTasks(res.data!);
+      }
+    });
     
     this.selectedTodoTask = {
       ...todoTask,
@@ -135,6 +158,11 @@ export class TodayComponent {
     this.todoTaskService.getAll(this.user.id, "Today").subscribe({
       next: (res) => {
         this.todoTasks = res.data!;
+      }
+    });
+    this.todoTaskService.getAll(this.user.id).subscribe({
+      next: (res) => {
+        this.todoTaskSharedService.setTodoTasks(res.data!);
       }
     });
   }

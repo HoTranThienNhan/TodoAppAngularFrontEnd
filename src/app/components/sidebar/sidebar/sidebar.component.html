@@ -2,10 +2,10 @@
     <div class="top-sidebar">
         <div class="top-header-sidebar flex flex-row justify-between items-center">
             <div class="avatar-section">
-                <app-avatar-profile [firstName]="user()!.firstName" [username]="user()!.username"
-                    avatarSrc="../assets/images/avatar.jpg" [isCollapsed]="isCollapsed" (click)="openAccountModal()"
+                <app-avatar-profile [firstName]="user.firstName" [lastName]="user.lastName" [username]="user.username"
+                    [avatarSrc]="user.avatar ? user.avatar : '../assets/images/user/default-avatar.jpg'" [isCollapsed]="isCollapsed" (click)="openAccountModal()"
                     class="cursor-pointer"></app-avatar-profile>
-                <app-account (changeAccountEventEmitter)="updateAccount($event)" [account]="user()!"></app-account>
+                <app-account (changeAccountEventEmitter)="updateAccount($event)"></app-account>
             </div>
             <div class="hamburger-menu cursor-pointer" (click)="closeLeftSidebar(isCollapsed)">
                 @if (!isCollapsed) {
@@ -42,7 +42,7 @@
                         <app-tag [tagId]="tag.id">{{ tag.name }}</app-tag>
                         }
                     </div>
-                <app-add-tag addTagModalTitle="Add Tag" [user]="user()!" (notifyRefetchTagsEventEmitter)="refetchAllTags()"></app-add-tag>
+                <app-add-tag addTagModalTitle="Add Tag" [user]="user" (notifyRefetchTagsEventEmitter)="refetchAllTags()"></app-add-tag>
                 } @else {
                 <app-tag [isCollapsed]="isCollapsed">{{ '...' }}</app-tag>
                 }

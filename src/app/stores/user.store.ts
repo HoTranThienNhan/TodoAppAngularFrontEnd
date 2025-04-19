@@ -61,6 +61,7 @@ export const UserStore = signalStore(
                 username: user.username,
                 email: user.email,
                 phone: user.phone,
+                avatar: user.avatar,
                 isActive: user.isActive,
             }));
         },

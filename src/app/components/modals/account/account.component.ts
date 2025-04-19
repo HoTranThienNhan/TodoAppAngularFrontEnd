@@ -5,10 +5,12 @@ import { ButtonComponent } from "../../buttons/button/button.component";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FullNamePipe } from '../../../pipes/full-name.pipe';
 import { User } from '../../../models/user/user.model';
+import { ButtonFileUploadComponent } from "../../buttons/button-file-upload/button-file-upload.component";
+import { UserStore } from '../../../stores/user.store';
 
 @Component({
   selector: 'app-account',
-  imports: [NzModalModule, InputComponent, ButtonComponent, FullNamePipe],
+  imports: [NzModalModule, InputComponent, ButtonComponent, FullNamePipe, ButtonFileUploadComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
 })
@@ -16,7 +18,7 @@ export class AccountComponent implements OnInit {
   // props
   isVisible = false;
   accountForm!: FormGroup;
-  account = input<User>(new User(
+  user: User = new User(
     'userid',
     'First Name',
     "",
@@ -25,11 +27,12 @@ export class AccountComponent implements OnInit {
     '0123456789',
     true,
     '../assets/images/avatar.jpg'
-  ));
+  );
   changeAccountEventEmitter = output<User>();
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
+  userStore = inject(UserStore);
 
   // getter, setters
   get firstName(): FormControl {
@@ -55,18 +58,24 @@ export class AccountComponent implements OnInit {
 
   // hooks 
   ngOnInit(): void {
+    this.user = this.userStore.getUser();
+
     this.accountForm = this.fb.group({
-      firstName: [this.account().firstName, Validators.required],
-      lastName: [this.account().lastName, Validators.required],
-      email: [this.account().email, Validators.required],
-      phone: [this.account().phone, Validators.required],
-      avatar: [this.account().avatar, Validators.required]
+      id: [this.user.id,],
+      firstName: [this.user.firstName, Validators.required],
+      lastName: [this.user.lastName],
+      userName: [this.user.username,],
+      email: [this.user.email, Validators.required],
+      phone: [this.user.phone, Validators.required],
+      avatar: [this.user.avatar],
+      isActive: [true,],
     });
   }
 
   // methods
   showModal(): void {
     this.isVisible = true;
+    this.user = this.userStore.getUser();
   }
 
   handleOk(): void {
@@ -76,5 +85,23 @@ export class AccountComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.resetAccountForm();
+  }
+
+  resetAccountForm(): void {
+    this.accountForm = this.fb.group({
+      id: [this.user.id,],
+      firstName: [this.user.firstName, Validators.required],
+      lastName: [this.user.lastName],
+      userName: [this.user.username,],
+      email: [this.user.email, Validators.required],
+      phone: [this.user.phone, Validators.required],
+      avatar: [this.user.avatar],
+      isActive: [true,],
+    });
+  }
+
+  setBase64AvatarImage(base64: string): void {
+    this.avatar.setValue(base64);
   }
 }

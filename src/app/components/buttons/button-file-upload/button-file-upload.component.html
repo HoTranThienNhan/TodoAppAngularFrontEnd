@@ -1,0 +1,4 @@
+<input type="file" (change)="onFileSelected($event)" #inputFile class="file-input">
+<app-button buttonAction="button" buttonType="Outline" buttonSize="sm" (click)="inputFile.click()">
+    <ng-content></ng-content>
+</app-button>

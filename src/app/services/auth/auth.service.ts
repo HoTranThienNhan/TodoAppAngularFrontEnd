@@ -7,6 +7,8 @@ import { SigninDto } from '../../models/auth/signin-dto/signin-dto.model';
 import { RefreshTokenResDto } from '../../models/auth/refresh-token-res-dto/refresh-token-res-dto.model';
 import { RegisterResDto } from '../../models/auth/register-res-dto/register-res-dto.model';
 import { RefreshTokenDto } from '../../models/auth/refresh-token-dto/refresh-token-dto.model';
+import { User } from '../../models/user/user.model';
+import { UserResDto } from '../../models/auth/user-res-dto/user-res-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +65,12 @@ export class AuthService {
     const fullApiUrl = this.apiUrl + "/profile" + `?email=${email}`;
 
     return this.http.get<any>(fullApiUrl);
+  }
+
+  update(user: User): Observable<UserResDto> {
+    const fullApiUrl = this.apiUrl + "/update";
+
+    return this.http.post<UserResDto>(fullApiUrl, user);
   }
 
   // tokens

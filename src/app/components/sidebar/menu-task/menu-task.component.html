@@ -1,26 +1,26 @@
 <div>
-    <app-menu-task-items [title]="isCollapsed() ? '' : 'Today'" [quantity]="isCollapsed() ? 0 : 1" [isSelected]="this.selectedTaskItems[0].value"
+    <app-menu-task-items [title]="isCollapsed() ? '' : 'Today'" [quantity]="isCollapsed() ? 0 : this.selectedTaskItems[0].count" [isSelected]="this.selectedTaskItems[0].value"
         (clickEventEmitter)="navigateToTaskPage('today')" [isCollapsed]="isCollapsed()">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" [nzTooltipTitle]="'Today'" nzTooltipPlacement="right" nz-tooltip [nzTooltipTrigger]="isCollapsed() ? 'hover' : null">
             <path d="M8 6H21M8 12H21M8 18H21M3 6H3.01M3 12H3.01M3 18H3.01" stroke="#66707A" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </app-menu-task-items>
-    <app-menu-task-items [title]="isCollapsed() ? '' : 'Upcoming'" [quantity]="isCollapsed() ? 0 : 12" [isSelected]="this.selectedTaskItems[1].value"
+    <app-menu-task-items [title]="isCollapsed() ? '' : 'Upcoming'" [quantity]="isCollapsed() ? 0 : this.selectedTaskItems[1].count" [isSelected]="this.selectedTaskItems[1].value"
         (clickEventEmitter)="navigateToTaskPage('upcoming')" [isCollapsed]="isCollapsed()">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" [nzTooltipTitle]="'Upcoming'" nzTooltipPlacement="right" nz-tooltip [nzTooltipTrigger]="isCollapsed() ? 'hover' : null">
             <path d="M13 17L18 12L13 7M6 17L11 12L6 7" stroke="#66707A" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round" />
         </svg>
     </app-menu-task-items>
-    <app-menu-task-items [title]="isCollapsed() ? '' : 'Important'" [quantity]="isCollapsed() ? 0 : 2" [isSelected]="this.selectedTaskItems[2].value"
+    <app-menu-task-items [title]="isCollapsed() ? '' : 'Important'" [quantity]="isCollapsed() ? 0 : this.selectedTaskItems[2].count" [isSelected]="this.selectedTaskItems[2].value"
         (clickEventEmitter)="navigateToTaskPage('important')" [isCollapsed]="isCollapsed()">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" [nzTooltipTitle]="'Important'" nzTooltipPlacement="right" nz-tooltip [nzTooltipTrigger]="isCollapsed() ? 'hover' : null">
             <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
                 stroke="#66707A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </app-menu-task-items>
-    <app-menu-task-items [title]="isCollapsed() ? '' : 'Done'" [quantity]="isCollapsed() ? 0 : 2" [isSelected]="this.selectedTaskItems[3].value"
+    <app-menu-task-items [title]="isCollapsed() ? '' : 'Done'" [quantity]="isCollapsed() ? 0 : this.selectedTaskItems[3].count" [isSelected]="this.selectedTaskItems[3].value"
         (clickEventEmitter)="navigateToTaskPage('done')" [isCollapsed]="isCollapsed()">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 18 19" fill="none" [nzTooltipTitle]="'Done'" nzTooltipPlacement="right" nz-tooltip [nzTooltipTrigger]="isCollapsed() ? 'hover' : null">
             <g clip-path="url(#clip0_167_843)">

@@ -6,12 +6,16 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoTaskSharedService {
-  _todoTaskSubject: Subject<TodoTask> = new Subject<TodoTask>();
-  todoTask$: Observable<TodoTask> = this._todoTaskSubject.asObservable();
+  _todoTaskSubject: Subject<Array<TodoTask>> = new Subject<Array<TodoTask>>();
+  todoTask$: Observable<Array<TodoTask>> = this._todoTaskSubject.asObservable();
 
   constructor() { }
 
-  setTodoTask(todoTask: TodoTask): void {
+  setTodoTasks(todoTask: Array<TodoTask>): void {
     this._todoTaskSubject.next(todoTask);
+  }
+
+  getTodoTasks(): Observable<Array<TodoTask>> {
+    return this.todoTask$;
   }
 }

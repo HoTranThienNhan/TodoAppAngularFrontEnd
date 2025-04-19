@@ -18,12 +18,17 @@ export class TodoTaskService {
   private http: HttpClient = inject(HttpClient);
 
   getAll(userId: string, filter?: 'Today' | 'Upcoming' | 'Done' | 'Important', isDeleted: boolean = false, search?: string): Observable<AllTodoTasksResDto> {
-    let fullApiUrl = this.apiUrl;
+    let fullApiUrl = this.apiUrl + `/all?userId=${userId}`;
 
-    if (!search) {
-      fullApiUrl += `/all?userId=${userId}&filter=${filter}&isDeleted=${isDeleted}`;
+    if (search) {
+      fullApiUrl += `&search=${search}`;
     } else {
-      fullApiUrl += `/all?userId=${userId}&search=${search}`;
+      if (filter) {
+        fullApiUrl += `&filter=${filter}`;
+      }
+      if (isDeleted) {
+        fullApiUrl += `&isDeleted=${isDeleted}`;
+      }
     }
 
     return this.http.get<AllTodoTasksResDto>(fullApiUrl);

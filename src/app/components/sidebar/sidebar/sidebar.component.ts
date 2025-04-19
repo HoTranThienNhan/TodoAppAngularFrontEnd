@@ -14,7 +14,9 @@ import { TagService } from '../../../services/tag/tag.service';
 import { Tag } from '../../../models/tag/tag/tag.model';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { SidebarStateStore } from '../../../stores/sidebar.store';
-import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
+import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,7 +26,7 @@ import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 })
 export class SidebarComponent {
   // props
-  user = input<User>();
+  user!: User;
   searchForm!: FormGroup;
   isSelectedSettings: boolean = false;
   tags: Array<Tag> = [];
@@ -41,6 +43,9 @@ export class SidebarComponent {
   fb: FormBuilder = inject(FormBuilder);
   router: Router = inject(Router);
   tagService: TagService = inject(TagService);
+  todoTaskService: TodoTaskService = inject(TodoTaskService);
+  authService: AuthService = inject(AuthService);
+  message: NzMessageService = inject(NzMessageService);
 
   // hooks
   ngOnInit(): void {
@@ -50,8 +55,10 @@ export class SidebarComponent {
       search: ["", []]
     });
 
-    if (this.user()!.id !== "") {
-      this.tagService.getAllByUserId(this.user()!.id).subscribe({
+    this.user = this.userStore.getUser();
+
+    if (this.user.id !== "") {
+      this.tagService.getAllByUserId(this.user.id).subscribe({
         next: (res) => {
           res.data?.tags.map((tag: Tag) => {
             this.tags.push(tag);
@@ -79,7 +86,17 @@ export class SidebarComponent {
   }
 
   updateAccount(account: User): void {
-    console.log(account);
+    this.authService.update(account).subscribe({
+      next: (res) => {
+        this.userStore.storeUser(res.data!);
+        this.user = this.userStore.getUser();
+
+        this.message.success("Update account successfully!", {
+          nzDuration: 3000,
+          nzPauseOnHover: true,
+        });
+      }
+    });
   }
 
   onButtonSearchClick(searchValue: string): void {
@@ -133,7 +150,7 @@ export class SidebarComponent {
 
   refetchAllTags(): void {
     this.tags.length = 0;   // clear tags array
-    this.tagService.getAllByUserId(this.user()!.id).subscribe({
+    this.tagService.getAllByUserId(this.user.id).subscribe({
       next: (res) => {
         res.data?.tags.map((tag: Tag) => {
           this.tags.push(tag);
