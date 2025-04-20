@@ -94,7 +94,7 @@ export class AddTagComponent {
           this.isVisible = false;
         },
         error: (err) => {
-          this.message.error(err.error.message, {
+          this.message.error(err.error.message ?? "Add tag unsuccessfully!", {
             nzDuration: 3000,
             nzPauseOnHover: true,
           });

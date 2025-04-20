@@ -12,6 +12,9 @@ import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
+import { EMPTY, forkJoin, switchMap } from 'rxjs';
+import { UpdateTodoTaskResDto } from '../../../models/todo-task/update-todo-task-res-dto/update-todo-task-res-dto.model';
+import { AllTodoTasksResDto } from '../../../models/todo-task/all-todo-tasks-res-dto/all-todo-tasks-res-dto.model';
 
 @Component({
   selector: 'app-today',
@@ -87,18 +90,16 @@ export class TodayComponent {
     this.todoTaskService.update({
       ...todoTask,
       isDone: isDone,
-    }).subscribe();
-
-    this.todoTaskService.getAll(this.user.id, "Today").subscribe({
-      next: (res) => {
-        this.todoTasks = res.data!;
-      }
-    });
-
-    this.todoTaskService.getAll(this.user.id).subscribe({
-      next: (res) => {
-        this.todoTaskSharedService.setTodoTasks(res.data!);
-      }
+    }).pipe(
+      switchMap((res) => {
+        return this.todoTaskService.getAll(this.user.id, "Today");
+      }),
+      switchMap((resGetAllToday: AllTodoTasksResDto) => {
+        this.todoTasks = resGetAllToday.data!;
+        return this.todoTaskService.getAll(this.user.id);
+      })
+    ).subscribe((resGetAll: AllTodoTasksResDto) => {
+        this.todoTaskSharedService.setTodoTasks(resGetAll.data!);
     });
 
     let messageContent: string = '';
@@ -118,7 +119,17 @@ export class TodayComponent {
     this.todoTaskService.update({
       ...todoTask,
       isImportant: isImportant,
-    }).subscribe();
+    }).pipe(
+      switchMap((res) => {
+        return this.todoTaskService.getAll(this.user.id, "Today");
+      }),
+      switchMap((resGetAllToday: AllTodoTasksResDto) => {
+        this.todoTasks = resGetAllToday.data!;
+        return this.todoTaskService.getAll(this.user.id);
+      })
+    ).subscribe((resGetAll: AllTodoTasksResDto) => {
+        this.todoTaskSharedService.setTodoTasks(resGetAll.data!);
+    });
 
     let messageContent: string = '';
     if (isImportant) {
@@ -130,18 +141,6 @@ export class TodayComponent {
     this.message.success(messageContent, {
       nzDuration: 3000,
       nzPauseOnHover: true,
-    });
-
-    this.todoTaskService.getAll(this.user.id, "Today").subscribe({
-      next: (res) => {
-        this.todoTasks = res.data!;
-      }
-    });
-
-    this.todoTaskService.getAll(this.user.id).subscribe({
-      next: (res) => {
-        this.todoTaskSharedService.setTodoTasks(res.data!);
-      }
     });
     
     this.selectedTodoTask = {
