@@ -7,7 +7,8 @@
                 stroke="#66707A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <ng-select class="search-select" [items]="cities" [searchFn]="customSearchFn" bindLabel="name" [placeholder]="placeholder()"
+    <!-- <ng-select class="search-select" [items]="cities" [searchFn]="customSearchFn" bindLabel="name" [placeholder]="placeholder()"
         [(ngModel)]="selectedCity" [class.search-select-collapsed]="isCollapsed()">
-    </ng-select>
+    </ng-select> -->
+    <input class="search-input" [class.search-input-collapsed]="isCollapsed()" type="text" [placeholder]="placeholder()" [(ngModel)]="searchValue">
 </div>

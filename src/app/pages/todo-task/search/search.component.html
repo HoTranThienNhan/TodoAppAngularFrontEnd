@@ -1,22 +1,13 @@
-<section class="todo-task-today flex flex-row justify-between">
+<section class="todo-task-search flex flex-row justify-between">
     <div class="main-content flex flex-col justify-start">
         <div class="title">
-            Today
+            Search
         </div>
         <div class="introduction">
-            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You have {{ todoTasks!.length |
-            i18nPlural: todoTasksQuantityTextMapping }} today ({{
-            currentDate | convertDateString : 'DD/MM/YYYY' }}).
+            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! Found {{ todoTasks!.length |
+            i18nPlural: todoTasksQuantityTextMapping }} for "{{ key }}".
         </div>
         <div class="all-todo-tasks">
-            <div class="add-new-task flex flex-row items-center" (click)="openAddNewTask()">
-                <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                    viewBox="0 0 20 20" fill="none">
-                    <path d="M9.99996 4.16667V15.8333M4.16663 10H15.8333" stroke="#66707A" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <button>Add New Task</button>
-            </div>
             @for (todoTask of todoTasks; track todoTask.id) {
             <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
                 [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"

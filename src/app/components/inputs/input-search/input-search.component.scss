@@ -7,6 +7,15 @@
     &::placeholder {
         color: variables.$surface-200;
     }
+
+    &:focus {
+        border: 0;
+        outline: none;
+    }
+
+    &.search-input-collapsed {
+        display: none;
+    }
 }
 
 button {

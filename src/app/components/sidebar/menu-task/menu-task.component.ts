@@ -17,7 +17,7 @@ export class MenuTaskComponent {
   selectedTaskItems: Array<any> = [
     {
       "name": "today",
-      "value": true,
+      "value": false,
       "count": 0,
     },
     {
@@ -40,7 +40,7 @@ export class MenuTaskComponent {
       "value": false,
       "count": 0,
     },
-  ];  
+  ];
   isCollapsed = input<boolean>(false);
   navigateEventEmitter = output<string>();
 
@@ -51,23 +51,25 @@ export class MenuTaskComponent {
   ngOnInit(): void {
     this.todoTaskSharedService.getTodoTasks().subscribe({
       next: (res: Array<TodoTask>) => {
-        this.selectedTaskItems = this.selectedTaskItems.map(item => 
+        this.selectedTaskItems = this.selectedTaskItems.map(item =>
           item.name === "today" ? { ...item, count: this.countTodayTodoTask(res) } : item
         );
 
-        this.selectedTaskItems = this.selectedTaskItems.map(item => 
+        this.selectedTaskItems = this.selectedTaskItems.map(item =>
           item.name === "upcoming" ? { ...item, count: this.countUpcomingTodoTask(res) } : item
         );
 
-        this.selectedTaskItems = this.selectedTaskItems.map(item => 
+        this.selectedTaskItems = this.selectedTaskItems.map(item =>
           item.name === "important" ? { ...item, count: this.countImportantTodoTask(res) } : item
         );
 
-        this.selectedTaskItems = this.selectedTaskItems.map(item => 
+        this.selectedTaskItems = this.selectedTaskItems.map(item =>
           item.name === "done" ? { ...item, count: this.countDoneTodoTask(res) } : item
         );
       }
     });
+
+    this.selectedTaskItems = this.selectedTaskItems.map(taskItem => taskItem.name === "today" ? { ...taskItem, value: true } : { ...taskItem, value: false });
   }
 
   // methods
@@ -86,7 +88,7 @@ export class MenuTaskComponent {
       if (dayjs().format("YYYY-MM-DD") === dayjs(todoTask.date).format("YYYY-MM-DD")) {
         count += 1;
       }
-    }); 
+    });
     return count;
   }
 
@@ -96,7 +98,7 @@ export class MenuTaskComponent {
       if (DayjsHelper.compareTwoDateTime(dayjs(), dayjs(todoTask.date)) < 0) {
         count += 1;
       }
-    }); 
+    });
     return count;
   }
 
@@ -106,7 +108,7 @@ export class MenuTaskComponent {
       if (todoTask.isImportant) {
         count += 1;
       }
-    }); 
+    });
     return count;
   }
 
@@ -116,7 +118,7 @@ export class MenuTaskComponent {
       if (todoTask.isDone) {
         count += 1;
       }
-    }); 
+    });
     return count;
   }
 }

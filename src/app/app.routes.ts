@@ -26,4 +26,12 @@ export const routes: Routes = [
             fallbackRoute: '/signin'
         }
     },
+    {
+        path: 'search',
+        loadComponent: () => import('./pages/todo-task/search/search.component').then(c => c.SearchComponent),
+        canActivate: [authGuard],
+        data: {
+            fallbackRoute: '/signin'
+        }
+    },
 ];

@@ -100,7 +100,15 @@ export class SidebarComponent {
   }
 
   onButtonSearchClick(searchValue: string): void {
-    console.log(searchValue);
+    this.search.setValue("");
+    this.menuTaskComp.setAllAsFalse();
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['search'], {
+        queryParams: {
+          key: searchValue,
+        },
+      })
+    );
   }
 
   navigateToTaskPage(page: string): void {
