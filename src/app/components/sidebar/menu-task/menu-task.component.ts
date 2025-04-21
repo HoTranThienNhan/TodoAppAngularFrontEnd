@@ -5,6 +5,7 @@ import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import dayjs from 'dayjs';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
 import { DayjsHelper } from '../../../helpers/dayjs/dayjs-helper.helper';
+import { SelectedMenuTaskItemStore } from '../../../stores/menu-task-item.store';
 
 @Component({
   selector: 'app-menu-task',
@@ -46,6 +47,7 @@ export class MenuTaskComponent {
 
   // injection
   todoTaskSharedService: TodoTaskSharedService = inject(TodoTaskSharedService);
+  selectedMenuTaskItemStore = inject(SelectedMenuTaskItemStore);
 
   // hooks
   ngOnInit(): void {
@@ -69,7 +71,9 @@ export class MenuTaskComponent {
       }
     });
 
-    this.selectedTaskItems = this.selectedTaskItems.map(taskItem => taskItem.name === "today" ? { ...taskItem, value: true } : { ...taskItem, value: false });
+    const selectedItem = this.selectedMenuTaskItemStore.getSelectedMenuTaskItemState();
+
+    this.selectedTaskItems = this.selectedTaskItems.map(taskItem => taskItem.name === selectedItem ? { ...taskItem, value: true } : { ...taskItem, value: false });
   }
 
   // methods

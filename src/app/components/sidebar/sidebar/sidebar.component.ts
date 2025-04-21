@@ -17,6 +17,7 @@ import { SidebarStateStore } from '../../../stores/sidebar.store';
 import { TodoTaskService } from '../../../services/todo-task/todo-task.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { SelectedMenuTaskItemStore } from '../../../stores/menu-task-item.store';
 
 @Component({
   selector: 'app-sidebar',
@@ -46,6 +47,7 @@ export class SidebarComponent {
   todoTaskService: TodoTaskService = inject(TodoTaskService);
   authService: AuthService = inject(AuthService);
   message: NzMessageService = inject(NzMessageService);
+  selectedMenuTaskItemStore = inject(SelectedMenuTaskItemStore);
 
   // hooks
   ngOnInit(): void {
@@ -102,6 +104,7 @@ export class SidebarComponent {
   onButtonSearchClick(searchValue: string): void {
     this.search.setValue("");
     this.menuTaskComp.setAllAsFalse();
+    this.selectedMenuTaskItemStore.storeSelectedMenuTaskItemState("search");
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       this.router.navigate(['search'], {
         queryParams: {

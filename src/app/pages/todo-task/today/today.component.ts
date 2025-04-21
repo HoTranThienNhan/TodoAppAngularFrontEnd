@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStore } from '../../../stores/user.store';
 import { User } from '../../../models/user/user.model';
-import { SidebarComponent } from "../../../components/sidebar/sidebar/sidebar.component";
 import { TaskDetailsSidebarComponent } from "../../../components/sidebar/task-details-sidebar/task-details-sidebar.component";
 import { Dayjs } from 'dayjs';
 import { TaskItemComponent } from "../../../components/task/task-item/task-item.component";
@@ -14,10 +13,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
 import { switchMap } from 'rxjs';
 import { AllTodoTasksResDto } from '../../../models/todo-task/all-todo-tasks-res-dto/all-todo-tasks-res-dto.model';
+import { SelectedMenuTaskItemStore } from '../../../stores/menu-task-item.store';
 
 @Component({
   selector: 'app-today',
-  imports: [SidebarComponent, TaskDetailsSidebarComponent, TaskItemComponent, ConvertDateStringPipe, I18nPluralPipe],
+  imports: [TaskDetailsSidebarComponent, TaskItemComponent, ConvertDateStringPipe, I18nPluralPipe],
   templateUrl: './today.component.html',
   styleUrl: './today.component.scss'
 })
@@ -41,6 +41,7 @@ export class TodayComponent {
   todoTaskService: TodoTaskService = inject(TodoTaskService);
   message: NzMessageService = inject(NzMessageService);
   todoTaskSharedService: TodoTaskSharedService = inject(TodoTaskSharedService);
+    selectedMenuTaskItemStore = inject(SelectedMenuTaskItemStore);
 
   // hooks
   ngOnInit(): void {
@@ -58,6 +59,8 @@ export class TodayComponent {
         }
       });
     }
+
+    this.selectedMenuTaskItemStore.storeSelectedMenuTaskItemState("today");
   }
 
   // methods
