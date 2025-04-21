@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="right-sidebar">
-        <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
-            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
-            (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask"
-            [user]="user" [taskDetailsType]="taskDetailsType"></app-task-details-sidebar>
+        <app-task-details-sidebar
+            [isCollapsed]="rightSidebarCollapsed" (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
+            (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask" [user]="user"
+            [taskDetailsType]="taskDetailsType"></app-task-details-sidebar>
     </div>
 </section>

@@ -15,10 +15,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { AlertComponent } from "../../sweet-alert/alert/alert.component";
 import { AlertProps } from '../../../../types';
 import { AlertSharedService } from '../../../services/shared/alert/alert.shared.service';
+import { ClickOutsideDirective } from '../../../directives/click-outside/click-outside.directive';
 
 @Component({
   selector: 'app-task-details-sidebar',
-  imports: [DatePickerComponent, TagComponent, AddTagComponent, SubtaskComponent, ButtonComponent, ReactiveFormsModule, AlertComponent],
+  imports: [DatePickerComponent, TagComponent, AddTagComponent, SubtaskComponent, ButtonComponent, ReactiveFormsModule, AlertComponent, ClickOutsideDirective],
   templateUrl: './task-details-sidebar.component.html',
   styleUrl: './task-details-sidebar.component.scss'
 })
@@ -65,6 +66,12 @@ export class TaskDetailsSidebarComponent {
 
   todoTaskEffect = effect(() => {
     this.setInitTodoTaskDetailsForm();
+
+    if (!this.isCollapsed()) {
+      document.body.classList.add("prevent-click");
+    } else {
+      document.body.classList.remove("prevent-click");
+    }
   });
 
   // getters, setters
@@ -311,6 +318,15 @@ export class TaskDetailsSidebarComponent {
         });
       }
     });
+  }
+
+  clickOutside(): void {
+    if (!this.isCollapsed()) {
+      this.message.warning('Cannot trigger any action while filling the form!', {
+        nzDuration: 3000,
+        nzPauseOnHover: true,
+      });
+    }
   }
 
 }

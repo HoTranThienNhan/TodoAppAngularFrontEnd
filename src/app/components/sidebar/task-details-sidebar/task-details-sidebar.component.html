@@ -1,4 +1,4 @@
-<div class="sidebar flex flex-col justify-between" [class.sidebar-collapsed]="isCollapsed()">
+<div class="sidebar flex flex-col justify-between" [class.sidebar-collapsed]="isCollapsed()" appClickOutside (clickOutsideEventEmitter)="clickOutside()">
     <div class="top-sidebar">
         <form [formGroup]="todoTaskDetailsForm">
             <div class="title-section flex flex-row justify-between">

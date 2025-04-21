@@ -2,3 +2,19 @@
 @use "tailwindcss";
 @use "@ng-select/ng-select/themes/default.theme.css";
 @use "ng-zorro-antd/ng-zorro-antd.min.css";
+
+body {
+    &.prevent-click {
+        .left-sidebar {
+            pointer-events: none;
+        }
+
+        .main-content {
+            pointer-events: none;
+        }
+
+        .right-sidebar {
+            pointer-events: auto;
+        }
+    }
+}
