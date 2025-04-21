@@ -20,7 +20,7 @@
             @for (todoTask of todoTasks; track todoTask.id) {
             <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
                 [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
-                [isSelectedItem]="true" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
+                [isSelectedItem]="false" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
                 (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
                 (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
             }

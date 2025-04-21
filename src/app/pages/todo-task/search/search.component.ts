@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { UserStore } from '../../../stores/user.store';
 import { User } from '../../../models/user/user.model';
 import { TaskDetailsSidebarComponent } from "../../../components/sidebar/task-details-sidebar/task-details-sidebar.component";
@@ -9,7 +9,7 @@ import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
-import { switchMap } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { AllTodoTasksResDto } from '../../../models/todo-task/all-todo-tasks-res-dto/all-todo-tasks-res-dto.model';
 
 @Component({
@@ -31,6 +31,7 @@ export class SearchComponent {
   selectedTodoTask!: TodoTask;
   taskDetailsType: "Add" | "Update" = "Add";
   key: string = "";
+  routerEventsSubscription!: Subscription;
 
   // injection
   router: Router = inject(Router);
@@ -48,6 +49,25 @@ export class SearchComponent {
         this.key = params.get('key')!;
       }
     });
+
+    this.routerEventsSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (this.user) {
+          this.todoTaskService.getAll(this.user.id, undefined, undefined, this.key).subscribe({
+            next: (res) => {
+              this.todoTasks = res.data!;
+            }
+          });
+    
+          this.todoTaskService.getAll(this.user.id).subscribe({
+            next: (res) => {
+              this.todoTaskSharedService.setTodoTasks(res.data!);
+            }
+          });
+        }
+      }
+    });
+
     if (this.user) {
       this.todoTaskService.getAll(this.user.id, undefined, undefined, this.key).subscribe({
         next: (res) => {
@@ -61,6 +81,10 @@ export class SearchComponent {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.routerEventsSubscription.unsubscribe();
   }
 
   // methods

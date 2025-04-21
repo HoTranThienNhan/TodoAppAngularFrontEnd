@@ -19,19 +19,25 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/auth/verify-email/verify-email.component').then(c => c.VerifyEmailComponent)
     },
     {
-        path: 'today',
-        loadComponent: () => import('./pages/todo-task/today/today.component').then(c => c.TodayComponent),
-        canActivate: [authGuard],
-        data: {
-            fallbackRoute: '/signin'
-        }
-    },
-    {
-        path: 'search',
-        loadComponent: () => import('./pages/todo-task/search/search.component').then(c => c.SearchComponent),
-        canActivate: [authGuard],
-        data: {
-            fallbackRoute: '/signin'
-        }
+        path: 'todo-task',
+        loadComponent: () => import('./pages/shell/shell.component').then(c => c.ShellComponent),
+        children: [
+            {
+                path: 'today',
+                loadComponent: () => import('./pages/todo-task/today/today.component').then(c => c.TodayComponent),
+                canActivate: [authGuard],
+                data: {
+                    fallbackRoute: '/signin'
+                }
+            },
+            {
+                path: 'search',
+                loadComponent: () => import('./pages/todo-task/search/search.component').then(c => c.SearchComponent),
+                canActivate: [authGuard],
+                data: {
+                    fallbackRoute: '/signin'
+                }
+            },
+        ],
     },
 ];

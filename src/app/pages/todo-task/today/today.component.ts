@@ -86,6 +86,7 @@ export class TodayComponent {
     this.rightSidebarCollapsed = false;
     this.selectedTodoTask = todoTask;
     this.taskDetailsType = "Update";
+    console.log(this.selectedTodoTask);
   }
 
   toggleDoneTask(isDone: boolean, todoTask: TodoTask): void {

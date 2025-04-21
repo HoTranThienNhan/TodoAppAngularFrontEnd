@@ -1,5 +1,5 @@
 <div class="task-item">
-    <div class="task-item-content flex relative" [class]="{'selected': isSelectedItem()}">
+    <div #taskItemContent class="task-item-content flex relative" [class]="{'selected': isSelectedItem()}">
         <input type="checkbox" class="checkbox cursor-pointer" [checked]="isDone()" (change)="checkAsDone($event)">
         <svg class="important cursor-pointer" [class]="{'checked': isImportant()}" #importantEl
             (click)="checkAsImportant()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"

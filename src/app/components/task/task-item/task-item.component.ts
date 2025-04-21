@@ -24,6 +24,7 @@ export class TaskItemComponent implements AfterViewInit {
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
+  @ViewChild("taskItemContent") taskItemContentEl!: ElementRef;
   ngAfterViewInit(): void {
 
   }
@@ -47,5 +48,6 @@ export class TaskItemComponent implements AfterViewInit {
 
   openTaskItemDetails(): void {
     this.taskItemEventEmitter.emit();
+    this.taskItemContentEl.nativeElement.classList.add("selected");
   }
 }

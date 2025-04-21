@@ -69,7 +69,7 @@ export class SidebarComponent {
       });
     }
   }
-  
+
   @ViewChild(AccountComponent) accountComp!: AccountComponent;
   @ViewChild(MenuTaskComponent) menuTaskComp!: MenuTaskComponent;
   @ViewChild("sidebar") sidebarEl!: ElementRef;
@@ -105,32 +105,30 @@ export class SidebarComponent {
     this.search.setValue("");
     this.menuTaskComp.setAllAsFalse();
     this.selectedMenuTaskItemStore.storeSelectedMenuTaskItemState("search");
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-      this.router.navigate(['search'], {
-        queryParams: {
-          key: searchValue,
-        },
-      })
-    );
+    this.router.navigate(['todo-task/search'], {
+      queryParams: {
+        key: searchValue,
+      },
+    });
   }
 
   navigateToTaskPage(page: string): void {
     this.isSelectedSettings = false;
-    switch(page) {
-      case "today": 
-        this.router.navigate(['today']);
+    switch (page) {
+      case "today":
+        this.router.navigate(['todo-task/today']);
         break;
-      case "upcoming": 
-        this.router.navigate(['upcoming']);
+      case "upcoming":
+        this.router.navigate(['todo-task/upcoming']);
         break;
-      case "important": 
-        this.router.navigate(['important']);
+      case "important":
+        this.router.navigate(['todo-task/important']);
         break;
-      case "done": 
-        this.router.navigate(['done']);
+      case "done":
+        this.router.navigate(['todo-task/done']);
         break;
-      case "calendar": 
-        this.router.navigate(['calendar']);
+      case "calendar":
+        this.router.navigate(['todo-task/calendar']);
         break;
       default:
         break;

@@ -5,7 +5,7 @@
 
 body {
     &.prevent-click {
-        .left-sidebar {
+        app-sidebar {
             pointer-events: none;
         }
 

@@ -22,7 +22,7 @@ export class HomeComponent {
 
   // methods
   navigateToLoginPage(): void {
-    this.router.navigate(['/signin']);
+    this.router.navigate(['signin']);
   }
 
   navigateToSignUpPage(): void {
