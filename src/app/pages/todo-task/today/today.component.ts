@@ -12,8 +12,7 @@ import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { I18nPluralPipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
-import { EMPTY, forkJoin, switchMap } from 'rxjs';
-import { UpdateTodoTaskResDto } from '../../../models/todo-task/update-todo-task-res-dto/update-todo-task-res-dto.model';
+import { switchMap } from 'rxjs';
 import { AllTodoTasksResDto } from '../../../models/todo-task/all-todo-tasks-res-dto/all-todo-tasks-res-dto.model';
 
 @Component({

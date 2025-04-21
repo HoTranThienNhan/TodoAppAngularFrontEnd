@@ -4,6 +4,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import dayjs from 'dayjs';
 import { TodoTaskSharedService } from '../../../services/shared/todo-task/todo-task.shared.service';
+import { DayjsHelper } from '../../../helpers/dayjs/dayjs-helper.helper';
 
 @Component({
   selector: 'app-menu-task',
@@ -92,7 +93,7 @@ export class MenuTaskComponent {
   countUpcomingTodoTask(todoTasks: Array<TodoTask>): number {
     let count = 0;
     todoTasks.map((todoTask: TodoTask) => {
-      if (dayjs().diff(dayjs(todoTask.date), "day") < 0) {
+      if (DayjsHelper.compareTwoDateTime(dayjs(), dayjs(todoTask.date)) < 0) {
         count += 1;
       }
     }); 
