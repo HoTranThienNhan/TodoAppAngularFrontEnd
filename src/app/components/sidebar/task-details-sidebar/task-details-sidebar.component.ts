@@ -320,8 +320,9 @@ export class TaskDetailsSidebarComponent {
     });
   }
 
-  clickOutside(): void {
-    if (!this.isCollapsed()) {
+  clickOutside(event: Event): void {
+    let elementClicked: string = (event.target as HTMLInputElement).tagName;
+    if (!this.isCollapsed() && (elementClicked === "HTML" || elementClicked === "SECTION")) {
       this.message.warning('Cannot trigger any action while filling the form!', {
         nzDuration: 3000,
         nzPauseOnHover: true,
