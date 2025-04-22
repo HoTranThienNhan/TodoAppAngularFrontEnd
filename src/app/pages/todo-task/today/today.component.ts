@@ -47,9 +47,13 @@ export class TodayComponent {
   ngOnInit(): void {
     this.user = this.userStore.getUser();
     if (this.user) {
-      this.todoTaskService.getAll(this.user.id, "Today").subscribe({
+      this.todoTaskService.getAll(this.user.id, "Today")
+      .subscribe({
         next: (res) => {
           this.todoTasks = res.data!;
+        },
+        error: (err) => {
+          console.log(err);
         }
       });
 
