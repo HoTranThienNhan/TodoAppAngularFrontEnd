@@ -6,7 +6,6 @@ import { SubtaskComponent } from "../../subtask/subtask.component";
 import { ButtonComponent } from "../../buttons/button/button.component";
 import { TodoTask } from '../../../models/todo-task/todo-task/todo-task.model';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import dayjs from 'dayjs';
 import { User } from '../../../models/user/user.model';
 import { Tag } from '../../../models/tag/tag/tag.model';
 import { TodoSubtask } from '../../../models/todo-subtask/todo-subtask/todo-subtask';
@@ -16,6 +15,7 @@ import { AlertComponent } from "../../sweet-alert/alert/alert.component";
 import { AlertProps } from '../../../../types';
 import { AlertSharedService } from '../../../services/shared/alert/alert.shared.service';
 import { ClickOutsideDirective } from '../../../directives/click-outside/click-outside.directive';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-task-details-sidebar',
@@ -34,6 +34,7 @@ export class TaskDetailsSidebarComponent {
   notifyUpdateTodoTaskEventEmitter = output<void>();
   taskDetailsType = input<"Add" | "Update">("Add");
   alertProps!: AlertProps;
+  date: Date = new Date();
 
   // injection
   fb: FormBuilder = inject(FormBuilder);
@@ -46,6 +47,8 @@ export class TaskDetailsSidebarComponent {
   @ViewChild(SubtaskComponent) subtaskComp!: SubtaskComponent;
   @ViewChild(AlertComponent) alertCloseSidebarComp!: AlertComponent;
   ngOnInit(): void {
+    this.date = new Date();
+
     this.todoTaskDetailsForm = this.fb.group({
       id: ["", []],
       name: ["", []],
@@ -101,7 +104,14 @@ export class TaskDetailsSidebarComponent {
 
   // methods
   setInitTodoTaskDetailsForm(): void {
+    if (this.todoTask() && this.todoTask()?.date) {
+      this.date = new Date(this.todoTask()?.date!);
+    } else {
+      this.date = new Date();
+    }
+
     if (this.todoTask()) {
+
       this.todoTaskDetailsForm = this.fb.group({
         id: [this.todoTask()!.id, []],
         name: [this.todoTask()!.name ?? "", []],

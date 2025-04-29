@@ -1,0 +1,13 @@
+@mixin responsive($breakpoint: xxl) {
+    @if $breakpoint == xxl {
+        @media (min-width: 1440px) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint == xs {
+        @media (min-width: 360px) and (max-width: 575px) {
+            @content;
+        }
+    }
+}

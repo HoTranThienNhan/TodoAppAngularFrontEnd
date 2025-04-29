@@ -1,5 +1,8 @@
 <section class="todo-task-today flex flex-row justify-between">
     <div class="main-content flex flex-col justify-start">
+        <app-avatar-profile [firstName]="user.firstName" [lastName]="user.lastName" [username]="user.username"
+            [avatarSrc]="user.avatar ? user.avatar : '../assets/images/user/default-avatar.jpg'"
+            (click)="openAccountModal()" class="cursor-pointer"></app-avatar-profile>
         <div class="title">
             Today
         </div>
@@ -17,18 +20,21 @@
                 </svg>
                 <button>Add New Task</button>
             </div>
-            @for (todoTask of todoTasks; track todoTask.id) {
-            <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
-                [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
-                [isSelectedItem]="false" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
-                (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
-                (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
-            }
+            <div class="all-todo-tasks-items">
+                @for (todoTask of todoTasks; track todoTask.id) {
+                <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
+                    [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
+                    [isSelectedItem]="false" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
+                    (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
+                    (removeOtherSelectedItemEventEmitter)="removeOtherSelectedItem()"
+                    (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
+                }
+            </div>
         </div>
     </div>
     <div class="right-sidebar">
-        <app-task-details-sidebar
-            [isCollapsed]="rightSidebarCollapsed" (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
+        <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
+            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
             (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask" [user]="user"
             [taskDetailsType]="taskDetailsType"></app-task-details-sidebar>
     </div>

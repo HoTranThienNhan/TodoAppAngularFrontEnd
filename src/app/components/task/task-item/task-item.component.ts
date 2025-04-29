@@ -17,10 +17,11 @@ export class TaskItemComponent implements AfterViewInit {
   tags = input<Array<Tag>>([]);
   isDone = input<boolean>(false);
   isImportant = model<boolean>(false);
-  isSelectedItem = input<boolean>(false);
+  isSelectedItem = model<boolean>(false);
   taskItemEventEmitter = output<void>();
   doneTaskEventEmitter = output<boolean>();
   importantTaskEventEmitter = output<boolean>();
+  removeOtherSelectedItemEventEmitter = output<void>();
 
   // hooks
   @ViewChild("importantEl") importantEl!: ElementRef;
@@ -48,6 +49,7 @@ export class TaskItemComponent implements AfterViewInit {
 
   openTaskItemDetails(): void {
     this.taskItemEventEmitter.emit();
-    this.taskItemContentEl.nativeElement.classList.add("selected");
+    this.removeOtherSelectedItemEventEmitter.emit();
+    this.isSelectedItem.set(true);
   }
 }

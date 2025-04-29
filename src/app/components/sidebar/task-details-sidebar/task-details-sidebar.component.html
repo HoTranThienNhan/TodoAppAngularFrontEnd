@@ -27,7 +27,7 @@
             </div>
             <div class="date-section flex flex-row items-center">
                 <span class="date-title">Date:</span>
-                <app-date-picker (dateChangeEventEmit)="changeDate($event)"></app-date-picker>
+                <app-date-picker [date]="date" (dateChangeEventEmit)="changeDate($event)"></app-date-picker>
             </div>
             <div class="tags-section flex flex-row flex-wrap gap-y-[10px] items-center">
                 <span class="tags-title">Tags:</span>

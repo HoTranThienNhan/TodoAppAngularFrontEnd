@@ -1,8 +1,9 @@
-@use "../../../../../public/assets/sass/abstracts/variables";
+@use "../../../../../public/assets/sass/abstracts/variables" as vars;
+@use "../../../../../public/assets/sass/abstracts/mixins" as mixins;
 
 .task-item {
     padding: 5px 0px;
-    border-top: 2px solid variables.$grey-100;
+    border-top: 2px solid vars.$grey-100;
 
     .task-item-content {
         padding: 5px 10px;
@@ -16,7 +17,12 @@
             height: 16px;
             margin-right: 10px;
             margin-top: 3px;
-            accent-color: variables.$success-300;
+            accent-color: vars.$success-300;
+
+            @include mixins.responsive(xs) {
+                width: 10px;
+                height: 10px;
+            }
         }
 
         svg.important {
@@ -53,7 +59,7 @@
                     border-radius: 7px;
                     display: flex;
                     justify-content: center;
-                    background-color: variables.$grey-100;
+                    background-color: vars.$grey-100;
                 }
             }
 

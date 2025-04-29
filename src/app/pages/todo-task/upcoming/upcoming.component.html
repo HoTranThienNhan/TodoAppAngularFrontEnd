@@ -1,0 +1,69 @@
+<section class="todo-task-upcoming flex flex-row justify-between">
+    <div class="main-content flex flex-col justify-start">
+        <app-avatar-profile [firstName]="user.firstName" [lastName]="user.lastName" [username]="user.username"
+            [avatarSrc]="user.avatar ? user.avatar : '../assets/images/user/default-avatar.jpg'"
+            (click)="openAccountModal()" class="cursor-pointer"></app-avatar-profile>
+        <div class="title">
+            Upcoming
+        </div>
+        <div class="introduction">
+            Hi <strong>{{ user.firstName ? user.firstName : 'user' }}</strong>! You will have {{ todoTasks!.length |
+            i18nPlural: todoTasksQuantityTextMapping }}.
+        </div>
+        <div class="all-todo-tasks">
+            <div class="all-todo-tasks-section">
+                <div class="tomorrow-todo-tasks">
+                    Tomorrow ({{ tomorrowTodoTasks.length ? tomorrowTodoTasks.length : '0'}})
+                </div>
+                <div class="add-new-task flex flex-row items-center" (click)="openAddNewTask()">
+                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M9.99996 4.16667V15.8333M4.16663 10H15.8333" stroke="#66707A" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <button>Add New Task</button>
+                </div>
+                <div class="all-todo-tasks-items">
+                    @for (todoTask of tomorrowTodoTasks; track todoTask.id) {
+                    <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
+                        [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
+                        [isSelectedItem]="false" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
+                        (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
+                        (removeOtherSelectedItemEventEmitter)="removeOtherSelectedItem()"
+                        (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
+                    }
+                </div>
+            </div>
+
+            <div class="all-todo-tasks-section">
+                <div class="this-week-todo-tasks">
+                    This Week ({{ thisWeekTodoTasks.length ? thisWeekTodoTasks.length : '0' }})
+                </div>
+                <div class="add-new-task flex flex-row items-center" (click)="openAddNewTask()">
+                    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                        viewBox="0 0 20 20" fill="none">
+                        <path d="M9.99996 4.16667V15.8333M4.16663 10H15.8333" stroke="#66707A" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <button>Add New Task</button>
+                </div>
+                <div class="all-todo-tasks-items">
+                    @for (todoTask of thisWeekTodoTasks; track todoTask.id) {
+                    <app-task-item [content]="todoTask.name" [subtaskQuantity]="todoTask.todoSubtasks.length"
+                        [tags]="todoTask.tags" [isDone]="todoTask.isDone" [isImportant]="todoTask.isImportant"
+                        [isSelectedItem]="false" (taskItemEventEmitter)="openTaskItemDetails(todoTask)"
+                        (doneTaskEventEmitter)="toggleDoneTask($event, todoTask)"
+                        (removeOtherSelectedItemEventEmitter)="removeOtherSelectedItem()"
+                        (importantTaskEventEmitter)="toggleImportantTask($event, todoTask)"></app-task-item>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        <app-task-details-sidebar [isCollapsed]="rightSidebarCollapsed"
+            (notifyCollapsedEventEmitter)="toggleRightSidebarCollapsed($event)"
+            (notifyUpdateTodoTaskEventEmitter)="notifyUpdateTodoTask()" [todoTask]="selectedTodoTask" [user]="user"
+            [taskDetailsType]="taskDetailsType"></app-task-details-sidebar>
+    </div>
+</section>

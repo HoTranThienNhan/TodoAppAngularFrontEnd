@@ -1,4 +1,5 @@
-@use "../../../../public/assets/sass/abstracts/variables";
+@use "../../../../public/assets/sass/abstracts/variables" as vars;
+@use "../../../../public/assets/sass/abstracts/mixins" as mixins;
 
 .avatar-profile {
     .avatar-img {
@@ -8,6 +9,10 @@
         width: 32px;
         height: 32px;
         transition: all .6s;
+
+        @include mixins.responsive(xs) {
+            
+        }
 
         &.avatar-img-collapsed {
             width: 22px;
@@ -24,7 +29,7 @@
 
     .username {
         font-size: 11px;
-        color: variables.$surface-200;
+        color: vars.$surface-200;
     }
 
     &.avatar-profile-collapse {

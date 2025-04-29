@@ -31,6 +31,14 @@ export const routes: Routes = [
                 }
             },
             {
+                path: 'upcoming',
+                loadComponent: () => import('./pages/todo-task/upcoming/upcoming.component').then(c => c.UpcomingComponent),
+                canActivate: [authGuard],
+                data: {
+                    fallbackRoute: '/signin'
+                }
+            },
+            {
                 path: 'search',
                 loadComponent: () => import('./pages/todo-task/search/search.component').then(c => c.SearchComponent),
                 canActivate: [authGuard],

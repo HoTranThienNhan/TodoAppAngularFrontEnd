@@ -1,12 +1,20 @@
-@use "../../../../../public/assets/sass/abstracts/variables";
+@use "../../../../../public/assets/sass/abstracts/variables" as vars;
+@use "../../../../..//public/assets/sass/abstracts/mixins" as mixins;
 
 .sidebar {
     width: 250px;
     height: 100%;
-    background-color: variables.$grey-50;
+    background-color: vars.$grey-50;
     padding: 20px 15px;
     border-radius: 5px;
     transition: width .6s;
+
+    @include mixins.responsive(xs) {
+        display: none;
+        width: 0px;
+        padding: 0;
+        background-color: vars.$surface-50;
+    }
 
     &.sidebar-collapse {
         width: 76px;
